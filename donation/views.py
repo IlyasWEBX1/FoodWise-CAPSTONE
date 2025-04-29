@@ -5,3 +5,6 @@ def mitra(request):
 
 def donatur(request):
     return render(request, 'donation/donasisekarang.html')
+  
+def status_donasi(request):
+    return render(request, 'donation/statusdonasi.html')

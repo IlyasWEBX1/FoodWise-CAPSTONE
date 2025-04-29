@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Status Donasi</title>
+    <link rel="stylesheet" href="{% static 'css/statusdonasi.css' %}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <p><strong>
+            <span style="color: black;">FOOD</span><span style="color: #e85d04;">WISE</span>
+  </strong></p>
+        <button>Status Donasi</button>
+        <button>Riwayat Donasi</button>
+        <button>Tambah Makanan</button>
+    </div>
+
+    <!-- Konten Utama -->
+    <div class="main">
+        <div class="header">
+            <h1>Status Donasi</h1>
+            <button class="logout">Log Out</button>
+        </div>
+
+        <div class="status-container">
+            <div class="status-card status-belum">
+                <strong>Belum Diambil</strong>
+                <p>[Jenis Makanan]</p>
+                <p>(Jumlah Porsi)</p>
+                <p>@Alamat</p>
+                <p>{Tanggal}</p>
+            </div>
+            <div class="status-card status-sudah">
+                <strong>Sudah Diambil</strong>
+                <p>[Jenis Makanan]</p>
+                <p>(Jumlah Porsi)</p>
+                <p>@Alamat</p>
+                <p>{Tanggal}</p>
+            </div>
+            <div class="status-card status-selesai">
+                <strong>Belum Disalurkan</strong>
+                <p>[Jenis Makanan]</p>
+                <p>(Jumlah Porsi)</p>
+                <p>@Alamat</p>
+                <p>{Tanggal}</p>
+                <button class="confirm-btn">Konfirmasi Selesai</button>
+            </div>
+
+            <!-- Placeholder untuk grid tambahan -->
+            <div class="grid-placeholder"></div>
+            <div class="grid-placeholder"></div>
+            <div class="grid-placeholder"></div>
+            <div class="grid-placeholder"></div>
+            <div class="grid-placeholder"></div>
+            <div class="grid-placeholder"></div>
+        </div>
+    </div>
+</body>
+</html>
