@@ -1,23 +1,14 @@
-"""
-URL configuration for food_donation project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('donation.urls')),  # ini penting!
+    # path('mitra/', views.mitra, name='daftar_mitra'),
+    path('', views.mitra, name='home'),
+    path('signup/volunteer/', views.volunteer_signup, name='volunteer_signup'),
+    path('signup/fooddonor/', views.fooddonor_signup, name='fooddonor_signup'),
+    path('login/', views.login_view, name='login'),
+    path('donasi/', views.donatur, name='donasi_sekarang'),
+    path('status/', views.status_donasi, name='status_donasi'),
+    path('formdonasi/',views.form_donasi, name='form_donasi'),
+    path('riwayatdonasi/', views.riwayat_donasi, name='riwayat_donasi')
 ]
