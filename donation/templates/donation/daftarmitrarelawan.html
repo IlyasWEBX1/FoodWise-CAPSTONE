@@ -1,42 +1,44 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FoodWise</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-  <div class="navbar">
-    <div class="logo"><strong>FOOD<span>WISE</span></strong></div>
-    <div>
-      <a href="#">Daftar Mitra</a>
-      <a href="#">Jadi Relawan</a>
-    </div>
-    <button class="login-button">Log in</button>
-  </div>
 
-  <div class="section">
-    <h1><strong>FOOD<span style="color: #e85d04">WISE</span></strong></h1>
-    <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
-    <button class="button">DAFTAR MENJADI MITRA KAMI</button>
-    <div class="contact">
-      <span class="contact-icon">📞</span>
-      <strong>0811 2222 3333</strong>
-      <span>Hubungi jika terdapat masalah</span>
-    </div>
-  </div>
+{% block title %}FoodWise{% endblock %}
 
-  <div class="section orange">
-    <h1><strong>FOODWISE</strong></h1>
-    <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
-    <button class="button orange">JADI RELAWAN SEKARANG</button>
-    <div class="contact">
-      <span class="contact-icon">📞</span>
-      <strong>0811 2222 3333</strong>
-      <span>Hubungi jika terdapat masalah</span>
-    </div>
+{% block content %}
+
+  
+<div class="section orange">
+  <h1><strong>FOODWISE</strong></h1>
+  <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
+  <a href="{% url "donasi_sekarang" %}">
+    <button class="button orange">DONASI SEKARANG</button>
+  </a>
+  <div class="contact">
+    <span class="contact-icon">📞</span>
+    <strong>0811 2222 3333</strong>
+    <span>Hubungi jika terdapat masalah</span>
   </div>
-</body>
-</html>
+</div>
+
+<div class="section">
+  <h1><strong>FOOD<span style="color: #e85d04">WISE</span></strong></h1>
+  <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
+  <button class="button">DAFTAR MENJADI MITRA KAMI</button>
+  <div class="contact">
+    <span class="contact-icon">📞</span>
+    <strong>0811 2222 3333</strong>
+    <span>Hubungi jika terdapat masalah</span>
+  </div>
+</div>
+
+<div class="section orange">
+  <h1><strong>FOODWISE</strong></h1>
+  <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
+  <button class="button orange">JADI RELAWAN SEKARANG</button>
+  <div class="contact">
+    <span class="contact-icon">📞</span>
+    <strong>0811 2222 3333</strong>
+    <span>Hubungi jika terdapat masalah</span>
+  </div>
+</div>
+  
+{% endblock content %}
