@@ -8,7 +8,6 @@ body {
     display: flex;
 }
 
-
 /* Sidebar */
 .sidebar {
     width: 200px;
@@ -27,14 +26,14 @@ body {
     margin: 10px 0;
     width: 100%;
     padding: 10px;
-    background-color:  rgb(220, 96, 24);
+    background-color:  #d35400;
     border: none;
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
 }
 
-/* Konten utama */
+/* Main content */
 .main {
     flex-grow: 1;
     padding: 30px 50px;
@@ -59,46 +58,29 @@ body {
     cursor: pointer;
 }
 
-.status-container {
-    display: flex;
-    gap: 20px;
+/* Table */
+.table-container {
     margin-top: 30px;
-    flex-wrap: wrap;
-}
-
-.status-card {
-    background-color: #fff;
+    background-color: #fceee6;
+    padding: 20px;
     border-radius: 10px;
-    padding: 15px;
-    width: 200px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid #999;
 }
 
-.status-belum {
-    border-top: 5px solid red;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.status-sudah {
-    border-top: 5px solid blue;
-}
-
-.status-selesai {
-    border-top: 5px solid green;
-}
-
-.confirm-btn {
-    margin-top: 10px;
-    background-color: rgb(220, 96, 24);
+thead th {
+    background-color: #d35400;
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
 
-.grid-placeholder {
-    background-color: #ddd;
-    height: 120px;
-    border-radius: 10px;
-    width: 200px;
+tbody td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
 }

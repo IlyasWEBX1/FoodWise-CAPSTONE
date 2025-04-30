@@ -6,4 +6,6 @@ urlpatterns = [
     path('', views.mitra, name='home'),
     path('donasi/', views.donatur, name='donasi_sekarang'),
     path('status/', views.status_donasi, name='status_donasi'),
+    path('formdonasi/',views.form_donasi, name='form_donasi'),
+    path('riwayatdonasi/', views.riwayat_donasi, name='riwayat_donasi')
 ]
