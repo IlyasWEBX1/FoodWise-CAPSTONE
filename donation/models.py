@@ -1,23 +1,32 @@
 from django.db import models
 
-# Create your models here.
 class FoodDonor(models.Model):
-    name = models.CharField(max_length=100)
+    organization_name = models.CharField(max_length=100)  # Nama Perusahaan/Perorangan
+    food_type = models.CharField(max_length=100)          # Jenis Makanan
     location = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    expiry_date = models.DateField()
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.organization_name
 
 class Volunteer(models.Model):
-    name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
     location = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    birth_date = models.DateField()
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.full_name
 
 class FoodItem(models.Model):
     name_food = models.CharField(max_length=100)
-    expiry_date = models.DateField()
+    expiry_date = models.CharField(max_length=20, null=True, blank=True)
     quantity = models.IntegerField()
 
     def __str__(self):
