@@ -1,45 +1,30 @@
+{% extends "dashboard_base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Donasi Makanan</title>
-    <link rel="stylesheet" href="{% static 'css/formdonasi.css' %}">
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3><strong><span style="color: #000000">FOOD</span><span style="color: #e85d04">WISE</span></strong></h3>
-        <button>Status Donasi</button>
-        <button>Riwayat Donasi</button>
-        <button>Tambah Makanan</button>
-    </div>
 
-    <!-- Konten -->
-    <div class="main">
-        <div class="header">
-            <h1>Donasi Makanan</h1>
-            <button class="logout">Log Out</button>
-        </div>
+{% block title %}Donasi Makanan{% endblock title %}
+{% block header %}Donasi Makanan{% endblock header %}
 
-        <form class="form-donasi">
-            <label>Nama Donatur</label>
-            <input type="text" name="nama_donatur" required>
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/formdonasi.css' %}">
+{% endblock css %}
 
-            <label>Jenis Makanan</label>
-            <input type="text" name="jenis_makanan" required>
-
-            <label>Jumlah Porsi</label>
-            <input type="number" name="jumlah_porsi" min="1" required>
-
-            <label>Alamat</label>
-            <input type="text" name="alamat" required>
-
-            <label>Tanggal Kadaluarsa</label>
-            <input type="date" name="tgl_kadaluarsa" required>
-
-            <button type="submit" class="submit-btn">Kirim</button>
-        </form>
-    </div>
-</body>
-</html>
+{% block content %}
+<form class="form-donasi">
+    <label>Nama Donatur</label>
+    <input type="text" name="nama_donatur" required>
+    
+    <label>Jenis Makanan</label>
+    <input type="text" name="jenis_makanan" required>
+    
+    <label>Jumlah Porsi</label>
+    <input type="number" name="jumlah_porsi" min="1" required>
+    
+    <label>Alamat</label>
+    <input type="text" name="alamat" required>
+    
+    <label>Tanggal Kadaluarsa</label>
+    <input type="date" name="tgl_kadaluarsa" required>
+            
+    <button type="submit" class="submit-btn">Kirim</button>
+</form>
+{% endblock content %}

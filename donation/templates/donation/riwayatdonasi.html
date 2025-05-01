@@ -1,59 +1,46 @@
+{% extends "dashboard_base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Riwayat Donasi</title>
-    <link rel="stylesheet" href="{% static 'css/riwayatdonasi.css' %}">
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3><strong><span style="color: #000000">FOOD</span><span style="color: #e85d04">WISE</span></strong></h3>
-        <button>Status Donasi</button>
-        <button>Riwayat Donasi</button>
-        <button>Tambah Makanan</button>
-    </div>
 
-    <!-- Main content -->
-    <div class="main">
-        <div class="header">
-            <h1>Riwayat Donasi</h1>
-            <button class="logout">Log Out</button>
-        </div>
+{% block title %}Riwayat Donasi{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/riwayatdonasi.css' %}">
+{% endblock css %}
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Tanggal</th>
-                        <th>Jenis Makanan</th>
-                        <th>Porsi</th>
-                        <th>Alamat</th>
-                        <th>Relawan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>12 Desember 2012</td>
-                        <td>Ayam Bakar, Bebek Goreng</td>
-                        <td>5</td>
-                        <td>Jl. Jenderal Sudirman, Ngapeng</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>12 Desember 2012</td>
-                        <td>Ayam Bakar, Bebek Goreng</td>
-                        <td>5</td>
-                        <td>Jl. Jenderal Sudirman</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+{% block header %}Riwayat Donasi{% endblock header %}
+
+{% block content %}
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tanggal</th>
+                <th>Jenis Makanan</th>
+                <th>Porsi</th>
+                <th>Alamat</th>
+                <th>Relawan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>12 Desember 2012</td>
+                <td>Ayam Bakar, Bebek Goreng</td>
+                <td>5</td>
+                <td>Jl. Jenderal Sudirman, Ngapeng</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>12 Desember 2012</td>
+                <td>Ayam Bakar, Bebek Goreng</td>
+                <td>5</td>
+                <td>Jl. Jenderal Sudirman</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
