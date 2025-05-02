@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Jadi Mitra - FoodWise</title>
+    <link rel="stylesheet" href="{% static 'css/jadimitra.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Jadi Mitra</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="nama">Nama Perusahaan/Perorangan</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="jenis_makanan">Jenis Makanan</label>
+            <input type="text" id="jenis_makanan" name="jenis_makanan" required>
+
+            <label for="alamat">Alamat</label>
+            <input type="text" id="alamat" name="alamat" required>
+
+            <label for="telepon">Nomor Telepon</label>
+            <input type="text" id="telepon" name="telepon" required>
+
+            <label for="tanggal_kadaluwarsa">Tanggal Kadaluwarsa</label>
+            <input type="date" id="tanggal_kadaluwarsa" name="tanggal_kadaluwarsa" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Daftar</button>
+        </form>
+    </div>
+</body>
+</html>

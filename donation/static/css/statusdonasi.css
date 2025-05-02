@@ -24,9 +24,9 @@ body {
 .sidebar button {
     display: block;
     margin: 10px 0;
-    width: 100%;
+    width: 138%;
     padding: 10px;
-    background-color:  rgb(220, 96, 24);
+    background-color:  #d35400;
     border: none;
     color: #ffffff;
     border-radius: 5px;

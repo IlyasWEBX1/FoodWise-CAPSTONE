@@ -10,5 +10,7 @@ urlpatterns = [
     path('donasi/', views.donatur, name='donasi_sekarang'),
     path('status/', views.status_donasi, name='status_donasi'),
     path('formdonasi/',views.form_donasi, name='form_donasi'),
-    path('riwayatdonasi/', views.riwayat_donasi, name='riwayat_donasi')
+    path('riwayatdonasi/', views.riwayat_donasi, name='riwayat_donasi'),
+    path('jadirelawan/', views.jadi_relawan, name='jadi_relawan'),
+    path('jadimitra/', views.jadi_mitra, name='jadi_mitra'),
 ]

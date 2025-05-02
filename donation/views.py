@@ -53,3 +53,9 @@ def form_donasi(request):
 
 def riwayat_donasi(request):
     return render(request, 'donation/riwayatdonasi.html')
+
+def jadi_relawan(request):
+    return render(request, 'donation/jadirelawan.html')
+
+def jadi_mitra(request):
+    return render(request, 'donation/jadimitra.html')
