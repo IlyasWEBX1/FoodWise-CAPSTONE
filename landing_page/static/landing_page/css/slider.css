@@ -1,0 +1,170 @@
+/* Fun Fact Styles */
+.funfact-box {
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  background-color: rgba(232, 93, 4, 0.9);
+  padding: 1.5rem;
+  border-radius: 10px;
+  max-width: 300px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.funfact-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.funfact-text {
+  font-size: 1.1rem;
+  color: white;
+  line-height: 1.4;
+}
+
+/* Fade animation for funfact */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slider Container */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+/* Slide wrapper */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Individual Slide */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  left: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  z-index: 0;
+}
+
+.slide.active {
+  left: 0;
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 1;
+}
+
+/* Slide Content */
+.slide-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.slide-content .container {
+  color: #ffffff;
+  width: 100%;
+}
+
+/* Dots */
+.dots-container {
+  text-align: center;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  z-index: 2;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 4px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #717171;
+}
+
+/* Navigation Buttons */
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 1rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.prev-slide,
+.next-slide {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  z-index: 11;
+  pointer-events: auto;
+}
+
+.prev-slide:hover,
+.next-slide:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 60vh;
+  }
+
+  .slide-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+  }
+
+  .funfact-box {
+    padding: 1rem;
+    max-width: 90%;
+  }
+}

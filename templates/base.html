@@ -9,68 +9,31 @@
   {% block css %}{% endblock css %}
 </head>
 <body>
-  <div class="navbar">
-    <a href="{% url "home" %}"><div class="logo"><strong>FOOD<span>WISE</span></strong></div></a>
-    <div>
-      <a href="{% url 'status_donasi'%}">Status Donasi</a>
-      <a href="#">Riwayat Donasi</a>
+  <div class='container'>
+    <div class="navbar">
+      <a href="{% url "home" %}"><div class="logo"><strong>FOOD<span>WISE</span></strong></div></a>
+      <div>
+        <a href="{% url 'status_donasi'%}">Status Donasi</a>
+        <a href="#">Riwayat Donasi</a>
+      </div>
+      <a href="{% url 'login' %}">
+        <button class="login-button">Log in</button>
+      </a>
     </div>
-    <button class="login-button">Log in</button>
   </div>
 
   <div>
     {% block content %}{% endblock content %}
   </div>
 
-{% comment %} 
-  <div class="section orange">
-    <h1><strong>FOODWISE</strong></h1>
-    <p>FoodWise adalah sebuah aplikasi berbasis web yang berfungsi sebagai platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau individu yang membutuhkan makanan.</p>
-    <button class="button orange">DONASI SEKARANG</button>
-    <div class="contact">
-      <span class="contact-icon">📞</span>
-      <strong>0811 2222 3333</strong>
-      <span>Hubungi jika terdapat masalah</span>
-    </div>
-  </div>
+     
+  <footer>
+    <p>Hubungi Kami: <a href="tel:041122223333" style="color:white;">0411 2222 3333</a></p>
+    <p>© 2024 FoodWise. All rights reserved.</p>
+  </footer>
 
-  <div class="section">
-    <h2 style="text-align:center;">STATUS DONASI</h2>
 
-    <div>
-      <h3>Menunggu diambil relawan</h3>
-      <hr />
-      <p><strong>Tanggal:</strong> -</p>
-      <p><strong>Jumlah dan jenis makanan:</strong> -</p>
-    </div>
+  <script src="{% static 'landing_page/js/animatedButton.js' %}"></script>
 
-    <div>
-      <h3>Sudah diambil relawan</h3>
-      <hr />
-      <p><strong>Tanggal:</strong> -</p>
-      <p><strong>Jumlah dan jenis makanan:</strong> -</p>
-    </div>
-
-    <div>
-      <h3>Sudah dibagikan</h3>
-      <hr />
-      <p><strong>Tanggal:</strong> -</p>
-      <p><strong>Jumlah dan jenis makanan:</strong> -</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 style="text-align:center;">RIWAYAT DONASI</h2>
-    <div style="background-color:#f0f0f0; padding: 1rem; border-radius: 8px;">
-      <p><strong>Tanggal Donasi:</strong> -</p>
-      <p><strong>Jenis Makanan:</strong> -</p>
-      <p><strong>Jumlah Donasi (Porsi):</strong> -</p>
-      <p><strong>Status:</strong> -</p>
-      <p><strong>Nama Relawan:</strong> -</p>
-      <p><strong>Waktu Pengambilan:</strong> -</p>
-      <p><strong>Waktu Konfirmasi:</strong> -</p>
-      <p><strong>Bukti Pengambilan:</strong> -</p>
-    </div>
-  </div> {% endcomment %}
 </body>
 </html>
