@@ -11,7 +11,7 @@
         <h2>Jadi Relawan</h2>
         <form method="post">
             {% csrf_token %}
-            <label for="nama">Nama Lengkap</label>
+            <!-- <label for="nama">Nama Lengkap</label>
             <input type="text" id="nama" name="nama" required>
 
             <label for="gender">Jenis Kelamin</label>
@@ -30,8 +30,28 @@
             <input type="text" id="username" name="username" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required> -->
 
+            <label for="{{ form.full_name.id_for_label }}">Nama Lengkap</label>
+            {{ form.full_name }}
+
+            <label for="{{ form.gender.id_for_label }}">Jenis Kelamin</label>
+            {{ form.gender }}
+
+            <label for="{{ form.location.id_for_label }}">Alamat</label>
+            {{ form.location }}
+
+            <label for="{{ form.phone_number.id_for_label }}">Nomor Telepon</label>
+            {{ form.phone_number }}
+
+            <label for="{{ form.birth_date.id_for_label }}">Tanggal Lahir</label>
+            {{ form.birth_date }}
+
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
             <button type="submit">Daftar</button>
         </form>
     </div>

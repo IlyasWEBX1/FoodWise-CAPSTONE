@@ -11,7 +11,7 @@
         <h2>Jadi Mitra</h2>
         <form method="post">
             {% csrf_token %}
-            <label for="nama">Nama Perusahaan/Perorangan</label>
+            <!-- <label for="nama">Nama Perusahaan/Perorangan</label>
             <input type="text" id="nama" name="nama" required>
 
             <label for="jenis_makanan">Jenis Makanan</label>
@@ -30,7 +30,27 @@
             <input type="text" id="username" name="username" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required> -->
+            <label for="{{ form.organization_name.id_for_label }}">Nama Perusahaan/Perorangan</label>
+            {{ form.organization_name }}
+
+            <label for="{{ form.food_type.id_for_label }}">Jenis Makanan</label>
+            {{ form.food_type }}
+
+            <label for="{{ form.location.id_for_label }}">Alamat</label>
+            {{ form.location }}
+
+            <label for="{{ form.phone_number.id_for_label }}">Nomor Telepon</label>
+            {{ form.phone_number }}
+
+            <label for="{{ form.expiry_date.id_for_label }}">Tanggal Kadaluwarsa</label>
+            {{ form.expiry_date }}
+
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
 
             <button type="submit">Daftar</button>
         </form>
