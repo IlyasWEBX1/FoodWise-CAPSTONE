@@ -3,8 +3,6 @@
 
 {% block title %}FoodWise - Selamatkan Makanan, Lawan Kelaparan{% endblock title %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'landing_page/css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'landing_page/css/slider.css' %}">
 {% endblock css %}
 
 {% block content %}
@@ -46,7 +44,7 @@
     <div class='container'>
         <h2>Selamatkan Makanan, Lawan Kelaparan</h2>
         <p>FoodWise adalah platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau pihak yang membutuhkan makanan</p>
-        <a href="#donasi" class="button primary-cta cta-button">DONASI SEKARANG</a>
+        <a href="{% url 'donasi_sekarang' %}" class="button primary-cta cta-button">DONASI SEKARANG</a>
     </div>
 </section>
 
@@ -56,13 +54,13 @@
             <div class="cta-card">
                 <h3>Mitra Bisnis</h3>
                 <p>Bergabunglah sebagai mitra kami dan berikan kelebihan makanan Anda</p>
-                <a href="#mitra" class="button secondary-cta cta-button">DAFTAR MENJADI MITRA</a>
+                <a href="{% url 'jadi_mitra' %}" class="button secondary-cta cta-button">DAFTAR MENJADI MITRA</a>
             </div>
             
             <div class="cta-card">
                 <h3>Relawan</h3>
                 <p>Jadi bagian dari gerakan sosial kami</p>
-                <a href="#relawan" class="button secondary-cta cta-button">JADI RELAWAN</a>
+                <a href="{% url 'jadi_relawan' %}" class="button secondary-cta cta-button">JADI RELAWAN</a>
             </div>
         </div>
     </div>

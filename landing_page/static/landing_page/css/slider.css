@@ -11,7 +11,7 @@
 }
 
 .funfact-title {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: bold;
   color: white;
   margin-bottom: 0.5rem;
@@ -19,7 +19,7 @@
 }
 
 .funfact-text {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: white;
   line-height: 1.4;
 }
@@ -124,6 +124,7 @@
   padding: 0 1rem;
   z-index: 10;
   pointer-events: none;
+  opacity: 0;
 }
 
 .prev-slide,
@@ -141,6 +142,11 @@
   justify-content: center;
   transition: background-color 0.3s;
   z-index: 11;
+  pointer-events: auto;
+}
+
+.hero-slider:hover .slider-nav {
+  opacity: 1;
   pointer-events: auto;
 }
 

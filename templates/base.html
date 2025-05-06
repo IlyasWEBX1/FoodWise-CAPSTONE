@@ -6,16 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}FoodWise - Donasi{% endblock title %}}</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'landing_page/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'landing_page/css/slider.css' %}">
+
   {% block css %}{% endblock css %}
 </head>
 <body>
   <div class='container'>
     <div class="navbar">
       <a href="{% url "home" %}"><div class="logo"><strong>FOOD<span>WISE</span></strong></div></a>
-      <div>
+      {% comment %} <div>
         <a href="{% url 'status_donasi'%}">Status Donasi</a>
         <a href="#">Riwayat Donasi</a>
-      </div>
+      </div> {% endcomment %}
       <a href="{% url 'login' %}">
         <button class="login-button">Log in</button>
       </a>
