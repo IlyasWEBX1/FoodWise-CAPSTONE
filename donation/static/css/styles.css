@@ -2,13 +2,21 @@ body {
   margin: 0;
   font-family: 'Arial', sans-serif;
 }
+.container {
+  width: 100%;
+  max-width: 1200px; /* Lebar maksimum konten */
+  margin: 0 auto; /* Posisi tengah */
+  padding: 0 20px; /* Jarak dari tepi */
+}
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   font-size: 14px;
+  flex-wrap: wrap;
 }
+
 .navbar a {
   margin-left: 20px;
   text-decoration: none;
