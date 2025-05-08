@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}FoodWise - Selamatkan Makanan, Lawan Kelaparan{% endblock title %}
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+{% comment %} <header class="header">
+    <h1>FOODWISE</h1>
+</header> {% endcomment %}
+
+<!--slider sction -->
+<div class="hero-slider">
+    <div class="slider-container">
+
+        {% for funfact in funfacts %}
+        <!-- Slide 1 -->
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="slide-content">
+                <div class='container'>
+
+                    <h1 class="funfact-title">Taukah kamu?</h1>
+                    <p class="funfact-text">{{funfact}}</p>
+               
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    
+    <!-- Slider Navigation -->
+    <div class="slider-nav">
+        <button class="prev-slide">❮</button>
+        <button class="next-slide">❯</button>
+    </div>
+
+    <div class="dots-container"></div>
+</div>
+
+<section class="hero">
+    <div class='container'>
+        <h2>Selamatkan Makanan, Lawan Kelaparan</h2>
+        <p>FoodWise adalah platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau pihak yang membutuhkan makanan</p>
+        <a href="{% url 'donasi_sekarang' %}" class="button primary-cta cta-button">DONASI SEKARANG</a>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class='container'>
+        <div class="cta-grid">
+            <div class="cta-card">
+                <h3>Mitra Bisnis</h3>
+                <p>Bergabunglah sebagai mitra kami dan berikan kelebihan makanan Anda</p>
+                <a href="{% url 'jadi_mitra' %}" class="button secondary-cta cta-button">DAFTAR MENJADI MITRA</a>
+            </div>
+            
+            <div class="cta-card">
+                <h3>Relawan</h3>
+                <p>Jadi bagian dari gerakan sosial kami</p>
+                <a href="{% url 'jadi_relawan' %}" class="button secondary-cta cta-button">JADI RELAWAN</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--load JavaScript -->
+<script src="{% static 'landing_page/js/slider.js' %}"></script>
+{% endblock content %}

@@ -11,6 +11,7 @@
 
 {% block content %}
 <!-- Konten Utama -->
+<<<<<<< HEAD
 <div>    
     <div class="status-container">
         {% for transaction in pending_transactions%}
@@ -45,7 +46,39 @@
             <div class="grid-placeholder"></div>
             <div class="grid-placeholder"></div>
             <div class="grid-placeholder"></div>
+=======
+<div class="status-container">
+    <div class="status-card status-belum">
+        <strong>Belum Diambil</strong>
+        <p>[Jenis Makanan]</p>
+        <p>(Jumlah Porsi)</p>
+        <p>@Alamat</p>
+        <p>{Tanggal}</p>
+    </div>
+    <div class="status-card status-sudah">
+            <strong>Sudah Diambil</strong>
+            <p>[Jenis Makanan]</p>
+            <p>(Jumlah Porsi)</p>
+            <p>@Alamat</p>
+            <p>{Tanggal}</p>
         </div>
+        <div class="status-card status-selesai">
+            <strong>Belum Disalurkan</strong>
+            <p>[Jenis Makanan]</p>
+            <p>(Jumlah Porsi)</p>
+            <p>@Alamat</p>
+            <p>{Tanggal}</p>
+            <button class="confirm-btn">Konfirmasi Selesai</button>
+>>>>>>> 55bf630340ee0c7b7b9ba4b43d56ee4cd1b87a36
+        </div>
+        
+        <!-- Placeholder untuk grid tambahan -->
+        <div class="grid-placeholder"></div>
+        <div class="grid-placeholder"></div>
+        <div class="grid-placeholder"></div>
+        <div class="grid-placeholder"></div>
+        <div class="grid-placeholder"></div>
+        <div class="grid-placeholder"></div>
     </div>
     {% endblock content %}
     
