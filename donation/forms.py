@@ -1,5 +1,5 @@
 from django import forms
-from .models import Volunteer, FoodDonor, DonationTransaction
+from .models import Volunteer, FoodDonor, DonationTransaction, FoodItem
 
 # Volunteer Sign Up Form
 class VolunteerSignUpForm(forms.ModelForm):
@@ -23,9 +23,8 @@ class FoodDonorSignUpForm(forms.ModelForm):
 
     class Meta:
         model = FoodDonor
-        fields = ['organization_name', 'food_type', 'location', 'phone_number', 'expiry_date', 'username', 'password']
+        fields = ['organization_name', 'food_type', 'location', 'phone_number', 'username', 'password']
         widgets = {
-            'expiry_date': forms.DateInput(attrs={'type': 'date', 'id' : 'tanggal_kadaluwarsa'}),
             'organization_name': forms.TextInput(attrs={'id' : 'nama'}), 
             'food_type' : forms.TextInput(attrs={'id' : 'jenis_makanan'}), 
             'location' : forms.TextInput(attrs={'id' : 'alamat'}), 
@@ -51,3 +50,13 @@ class DonationTransactionForm(forms.ModelForm):
         if status not in ['Pending', 'Completed']:
             raise forms.ValidationError("Status must be either 'Pending' or 'Completed'.")
         return status
+
+class FoodItemForm(forms.ModelForm):
+    class Meta:
+        model = FoodItem
+        fields = ['name_food', 'expiry_date', 'quantity']
+        widgets = {
+            'expiry_date': forms.DateInput(attrs={'type': 'date', 'id' : 'tanggal_kadaluwarsa'}),
+            'name_food' : forms.TextInput(attrs={'id' : 'nama_makanan'}), 
+            'quantity' : forms.TextInput(attrs={'id' : 'kuantitas'}), 
+        }

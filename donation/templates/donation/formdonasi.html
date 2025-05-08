@@ -9,8 +9,22 @@
 {% endblock css %}
 
 {% block content %}
-<form class="form-donasi">
-    <label>Nama Donatur</label>
+{% if form.errors %}
+<div class="errorlist">
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p>{{ field.label }}: {{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+    
+</div>
+{% endif %}
+<form class="form-donasi" method="post">
+    {% csrf_token %}
+    <!-- <label>Nama Donatur</label>
     <input type="text" name="nama_donatur" required>
     
     <label>Jenis Makanan</label>
@@ -23,8 +37,40 @@
     <input type="text" name="alamat" required>
     
     <label>Tanggal Kadaluarsa</label>
-    <input type="date" name="tgl_kadaluarsa" required>
-            
-    <button type="submit" class="submit-btn">Kirim</button>
+    <input type="date" name="tgl_kadaluarsa" required> -->
+    {% if request.session.user_role == 'food_donor' %}
+    <p>Donatur: <strong>{{ food_donor.organization_name }}</strong></p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="{{ form.name_food.id_for_label }}">Nama Makanan</label>
+        {{ form.name_food }}
+        {% if form.name_food.errors %}
+            <div class="error">{{ form.name_food.errors }}</div>
+        {% endif %}
+
+        <label for="{{ form.expiry_date.id_for_label }}">Tanggal Kadaluwarsa</label>
+        {{ form.expiry_date }}
+        {% if form.expiry_date.errors %}
+            <div class="error">{{ form.expiry_date.errors }}</div>
+        {% endif %}
+
+        <label for="{{ form.quantity.id_for_label }}">Kuantitas</label>
+        {{ form.quantity }}
+        {% if form.quantity.errors %}
+            <div class="error">{{ form.quantity.errors }}</div>
+        {% endif %}
+
+        <button type="submit" class="submit-btn">Kirim</button>
+    </form>
+
+    {% elif request.session.user_role == 'volunteer' %}
+        <p>As a volunteer, you cannot submit food donations directly.</p>
+        <p>Please contact the food donor or admin for further actions.</p>
+
+    {% else %}
+        <p>You do not have permission to submit food donations.</p>
+    {% endif %}
 </form>
 {% endblock content %}

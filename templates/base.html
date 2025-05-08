@@ -15,7 +15,17 @@
       <a href="{% url 'status_donasi'%}">Status Donasi</a>
       <a href="#">Riwayat Donasi</a>
     </div>
-    <button class="login-button">Log in</button>
+    {% if request.session.username %}
+    <!-- If the user is logged in -->
+    <a href="{% url 'logout' %}">
+        <button class="login-button">Log out</button>
+    </a>
+    {% else %}
+    <!-- If the user is not logged in -->
+    <a href="{% url 'login' %}">
+        <button class="login-button">Log in</button>
+    </a>
+    {% endif %}
   </div>
 
   <div>

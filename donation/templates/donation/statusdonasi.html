@@ -13,13 +13,15 @@
 <!-- Konten Utama -->
 <div>    
     <div class="status-container">
+        {% for transaction in pending_transactions%}
         <div class="status-card status-belum">
             <strong>Belum Diambil</strong>
-            <p>[Jenis Makanan]</p>
-            <p>(Jumlah Porsi)</p>
-            <p>@Alamat</p>
-            <p>{Tanggal}</p>
+            <p>{{ transaction.food_item.name_food }}</p>
+            <p>{{ transaction.food_item.quantity }} Porsi</p>
+            <p>{{ transaction.food_item.food_donor.location }}</p>
+            <p>{{ transaction.donation_date }}</p>
         </div>
+        {% endfor %}
         <div class="status-card status-sudah">
                 <strong>Sudah Diambil</strong>
                 <p>[Jenis Makanan]</p>

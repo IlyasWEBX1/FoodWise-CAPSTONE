@@ -16,11 +16,17 @@
             <h2>Log in</h2>
             <form method="post">
                 {% csrf_token %}
-                <label for="username">Login, email or phone number</label>
-                <input type="text" id="username" name="username" required>
+                {% if form.non_field_errors %}
+                <div class="error">
+                    {{ form.non_field_errors }}
+                </div>
+                 {% endif %}
 
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <label for="{{ form.username.id_for_label }}">Login, email or phone number</label>
+                 {{ form.username }}
+
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                 {{ form.password }}
 
                 <div class="forgot">
                     <a href="#">forget password?</a>
