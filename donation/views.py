@@ -68,6 +68,9 @@ def login_view(request):
 def mitra(request):
     return render(request, 'donation/daftarmitrarelawan.html')
 
+def dashboardrelawan(request):
+    return render(request, 'donation/dashboardrelawan.html')
+
 def donatur(request):
     return render(request, 'donation/donasisekarang.html')
 

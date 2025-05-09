@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Cari Donasi - FoodWise</title>
+    <link rel="stylesheet" href="{% static 'css/dashboardrelawan.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">FOODWISE</div>
+        <nav>
+            <a href="#">Cari Donasi</a>
+            <a href="#">Donasi yang Diambil</a>
+            <a href="#">Laporan Pembagian</a>
+        </nav>
+        <button class="logout-btn">Log out</button>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h2>CARI DONASI</h2>
+            <div class="search-box">
+                <input type="text" placeholder="Cari donasi...">
+                <button>🔍</button>
+            </div>
+            <div class="donation-info">
+                <p>Donatur : </p>
+                <p>Jenis Makanan : </p>
+                <p>Jumlah : </p>
+                <p>Lokasi : </p>
+                <p>Tanggal : </p>
+                <p>Status : </p>
+            </div>
+            <button class="ambil-btn">Ambil Donasi</button>
+        </section>
+
+        <section class="diambil-section">
+            <h2>DONASI DIAMBIL</h2>
+            <div class="diambil-box">
+                <p>Tanggal Diambil</p>
+                <p>Nama Donatur</p>
+                <p>Jenis Makanan</p>
+                <p>Jumlah Makanan</p>
+                <p>Lokasi Pengambilan</p>
+                <p>Lokasi Pembagian</p>
+                <p>Status Donasi</p>
+                <p>Waktu Konfirmasi</p>
+                <button class="disalurkan-btn">Donasi Disalurkan</button>
+            </div>
+        </section>
+
+        <section class="laporan-section">
+            <h2>LAPORAN PEMBAGIAN</h2>
+            <div class="laporan-box">
+                <p>Tanggal Distribusi</p>
+                <p>Nama Donatur</p>
+                <p>Jenis Makanan</p>
+                <p>Jumlah Makanan</p>
+                <p>Tujuan Pembagian</p>
+                <p>Bukti Pembagian</p>
+                <p>Catatan</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

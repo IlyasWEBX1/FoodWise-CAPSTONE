@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #300000;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-weight: bold;
+    color: #d35400;
+    font-size: 18px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #300000;
+    font-size: 14px;
+}
+
+.logout-btn {
+    background: none;
+    border: 1px solid #300000;
+    padding: 4px 10px;
+    color: #300000;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+main {
+    padding: 20px 40px;
+}
+
+.search-section, .diambil-section, .laporan-section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    text-align: center;
+    color: #6d0606;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.donation-info p {
+    margin: 4px 0;
+    text-align: center;
+}
+
+.ambil-btn, .disalurkan-btn {
+    display: block;
+    margin: 15px auto;
+    background-color: #6d0606;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.diambil-section {
+    background-color: #f4c6a1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.diambil-box p, .laporan-box p {
+    margin: 5px 0;
+}
+
+.laporan-section {
+    margin-top: 30px;
+}
