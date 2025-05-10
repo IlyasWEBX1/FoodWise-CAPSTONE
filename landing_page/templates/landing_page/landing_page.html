@@ -3,6 +3,8 @@
 
 {% block title %}FoodWise - Selamatkan Makanan, Lawan Kelaparan{% endblock title %}
 {% block css %}
+<link rel="stylesheet" href="{% static 'landing_page/css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'landing_page/css/slider.css' %}">
 {% endblock css %}
 
 {% block content %}
@@ -40,31 +42,53 @@
     <div class="dots-container"></div>
 </div>
 
+<section class="secondary-section">
+    <div class="container">
+        <div class="content ">
+            <h1>Apa yang kami lakukan</h1>
+            <p>Kami mengumpulkan makanan berlebih dari restoran, katering, bakery, hotel, lahan pertanian, event, pernikahan, dan donasi individu, dengan melewati serangkaian uji kelayakan makanan, untuk disalurkan pada masyarakat pra-sejahtera.<p>
+        </div>
+    </div>
+</section>
+
 <section class="hero">
     <div class='container'>
         <h2>Selamatkan Makanan, Lawan Kelaparan</h2>
-        <p>FoodWise adalah platform untuk menghubungkan restoran, supermarket, dan individu dengan organisasi sosial atau pihak yang membutuhkan makanan</p>
-        <a href="{% url 'donasi_sekarang' %}" class="button primary-cta cta-button">DONASI SEKARANG</a>
+        <p>FoodWise hadir sebagai solusi untuk masalah pemborosan makanan. Melalui platform ini, siapa pun dapat dengan mudah mendonasikan makanan berlebih kepada pihak-pihak yang membutuhkan, sambil ikut berkontribusi dalam gerakan sosial melawan kelaparan dan food waste.</p>
+        {% comment %} <a href="{% url 'form_donasi' %}" class="button primary-cta cta-button">DONASI SEKARANG</a> {% endcomment %}
     </div>
 </section>
+
+<section class="primary-section">
+    <div class="container">
+        {% comment %} <div class="title"> {% endcomment %}
+        <h2>Panggilan Mitra</h2>
+        {% comment %} </div> {% endcomment %}
+        <h1>Jadilah bagian dari solusi bersama FoodWise.</h1>
+        <p>Sebagai mitra, Anda dapat menyalurkan kelebihan makanan dari restoran, supermarket, atau usaha kuliner Anda kepada mereka yang membutuhkan. Bergabunglah untuk mendukung upaya pengurangan food waste dan membantu masyarakat yang kurang mampu melalui donasi yang aman, cepat, dan berdampak.</p>
+        <a href="{% url 'jadi_mitra' %}" class="button cta-button">DAFTAR MENJADI MITRA</a>
+    </div>
+
+</section>  
 
 <section class="cta-section">
     <div class='container'>
         <div class="cta-grid">
             <div class="cta-card">
-                <h3>Mitra Bisnis</h3>
-                <p>Bergabunglah sebagai mitra kami dan berikan kelebihan makanan Anda</p>
-                <a href="{% url 'jadi_mitra' %}" class="button secondary-cta cta-button">DAFTAR MENJADI MITRA</a>
+                <h3>Usul Penerima</h3>
+                <p>Kenal pihak yang butuh bantuan makanan? Kirimkan usulanmu dan bantu kami menyalurkan donasi tepat sasaran.</p>
+                <a href="" class="button secondary-cta cta-button">Mulai</a>
             </div>
             
             <div class="cta-card">
-                <h3>Relawan</h3>
-                <p>Jadi bagian dari gerakan sosial kami</p>
-                <a href="{% url 'jadi_relawan' %}" class="button secondary-cta cta-button">JADI RELAWAN</a>
+                <h3>Jadi Relawan</h3>
+                <p>Jadi relawan FoodWise dan bantu kami mendistribusikan makanan kepada yang membutuhkan. Waktu kecilmu bisa berdampak besar.</p>
+                <a href="{% url 'jadi_relawan' %}" class="button secondary-cta cta-button">Mulai</a>
             </div>
         </div>
     </div>
 </section>
+
 
 
 <!--load JavaScript -->

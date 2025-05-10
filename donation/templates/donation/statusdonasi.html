@@ -11,74 +11,32 @@
 
 {% block content %}
 <!-- Konten Utama -->
-<<<<<<< HEAD
 <div>    
     <div class="status-container">
-        {% for transaction in pending_transactions%}
-        <div class="status-card status-belum">
-            <strong>Belum Diambil</strong>
+        {% comment %} 
+        status:
+        1. Menunggu Diambil
+        2. Menunggu Disalurkan
+        3. Telah Disalurkan
+        4. Selesai(DB only, pindah ke riwayat)
+        {% endcomment %}
+        {% for transaction in transactions%}
+        <div class="status-card 
+            {% if transaction.status == 'Menunggu Diambil' %}status-belum
+            {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
+            {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
+            {% endif %}">
+
+            <strong>{{ transaction.status }}</strong>
             <p>{{ transaction.food_item.name_food }}</p>
             <p>{{ transaction.food_item.quantity }} Porsi</p>
             <p>{{ transaction.food_item.food_donor.location }}</p>
             <p>{{ transaction.donation_date }}</p>
-        </div>
-        {% endfor %}
-        <div class="status-card status-sudah">
-                <strong>Sudah Diambil</strong>
-                <p>[Jenis Makanan]</p>
-                <p>(Jumlah Porsi)</p>
-                <p>@Alamat</p>
-                <p>{Tanggal}</p>
-            </div>
-            <div class="status-card status-selesai">
-                <strong>Belum Disalurkan</strong>
-                <p>[Jenis Makanan]</p>
-                <p>(Jumlah Porsi)</p>
-                <p>@Alamat</p>
-                <p>{Tanggal}</p>
-                <button class="confirm-btn">Konfirmasi Selesai</button>
-            </div>
-            
-            <!-- Placeholder untuk grid tambahan -->
-            <div class="grid-placeholder"></div>
-            <div class="grid-placeholder"></div>
-            <div class="grid-placeholder"></div>
-            <div class="grid-placeholder"></div>
-            <div class="grid-placeholder"></div>
-            <div class="grid-placeholder"></div>
-=======
-<div class="status-container">
-    <div class="status-card status-belum">
-        <strong>Belum Diambil</strong>
-        <p>[Jenis Makanan]</p>
-        <p>(Jumlah Porsi)</p>
-        <p>@Alamat</p>
-        <p>{Tanggal}</p>
-    </div>
-    <div class="status-card status-sudah">
-            <strong>Sudah Diambil</strong>
-            <p>[Jenis Makanan]</p>
-            <p>(Jumlah Porsi)</p>
-            <p>@Alamat</p>
-            <p>{Tanggal}</p>
-        </div>
-        <div class="status-card status-selesai">
-            <strong>Belum Disalurkan</strong>
-            <p>[Jenis Makanan]</p>
-            <p>(Jumlah Porsi)</p>
-            <p>@Alamat</p>
-            <p>{Tanggal}</p>
+            {% if transaction.status == 'Telah Disalurkan' %}
             <button class="confirm-btn">Konfirmasi Selesai</button>
->>>>>>> 55bf630340ee0c7b7b9ba4b43d56ee4cd1b87a36
+            {% endif %}
         </div>
-        
-        <!-- Placeholder untuk grid tambahan -->
-        <div class="grid-placeholder"></div>
-        <div class="grid-placeholder"></div>
-        <div class="grid-placeholder"></div>
-        <div class="grid-placeholder"></div>
-        <div class="grid-placeholder"></div>
-        <div class="grid-placeholder"></div>
+        {% endfor %}       
     </div>
     {% endblock content %}
     

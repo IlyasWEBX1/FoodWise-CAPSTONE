@@ -23,22 +23,16 @@
             </tr>
         </thead>
         <tbody>
+            {% for transaction in completed_transactions %}
             <tr>
-                <td>1.</td>
-                <td>12 Desember 2012</td>
-                <td>Ayam Bakar, Bebek Goreng</td>
-                <td>5</td>
-                <td>Jl. Jenderal Sudirman, Ngapeng</td>
-                <td></td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ transaction.donation_date }}</td>
+                <td>{{ transaction.food_item.name_food }}</td>
+                <td>{{ transaction.food_item.quantity }}</td>
+                <td>{{ transaction.food_item.food_donor.location }}</td>
+                <td>{{ transaction.volunteer.full_name }}</td>
             </tr>
-            <tr>
-                <td>2.</td>
-                <td>12 Desember 2012</td>
-                <td>Ayam Bakar, Bebek Goreng</td>
-                <td>5</td>
-                <td>Jl. Jenderal Sudirman</td>
-                <td></td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

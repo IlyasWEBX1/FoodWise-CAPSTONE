@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}FoodWise - Donasi{% endblock title %}}</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <link rel="stylesheet" href="{% static 'landing_page/css/styles.css' %}">
-  <link rel="stylesheet" href="{% static 'landing_page/css/slider.css' %}">
 
   {% block css %}{% endblock css %}
 </head>
@@ -19,24 +17,18 @@
         <a href="{% url 'status_donasi'%}">Status Donasi</a>
         <a href="#">Riwayat Donasi</a>
       </div> {% endcomment %}
-      <a href="{% url 'login' %}">
-        <button class="login-button">Log in</button>
+      {% if request.session.username %}
+      <!-- If the user is logged in -->
+      <a href="{% url 'logout' %}">
+          <button class="login-button">Log out</button>
       </a>
+      {% else %}
+      <!-- If the user is not logged in -->
+      <a href="{% url 'login' %}">
+          <button class="login-button">Log in</button>
+      </a>
+      {% endif %}
     </div>
-<<<<<<< HEAD
-    {% if request.session.username %}
-    <!-- If the user is logged in -->
-    <a href="{% url 'logout' %}">
-        <button class="login-button">Log out</button>
-    </a>
-    {% else %}
-    <!-- If the user is not logged in -->
-    <a href="{% url 'login' %}">
-        <button class="login-button">Log in</button>
-    </a>
-    {% endif %}
-=======
->>>>>>> 55bf630340ee0c7b7b9ba4b43d56ee4cd1b87a36
   </div>
 
   <div>

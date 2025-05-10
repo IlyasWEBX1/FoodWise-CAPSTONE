@@ -57,7 +57,7 @@ def login_view(request):
                 request.session['user_id'] = food_donor.id
                 request.session['user_role'] = 'food_donor'
                 request.session.set_expiry(3600 * 24 * 30)
-                return redirect('home')
+                return redirect('status_donasi')
 
             form.add_error(None, 'Invalid username or password')
     else:
@@ -78,7 +78,7 @@ def status_donasi(request):
     username = request.session.get('username')
     role = request.session.get('user_role')
 
-    transactions = []
+    transactions = DonationTransaction.objects.none()  # kosong tapi tetap queryset
 
     if role == 'volunteer':
         volunteer = Volunteer.objects.filter(username=username).first()
@@ -89,10 +89,10 @@ def status_donasi(request):
         donor = FoodDonor.objects.filter(username=username).first()
         if donor:
             transactions = DonationTransaction.objects.filter(food_item__food_donor=donor)
-
+    else: 
+        return redirect('login')
     return render(request, 'donation/statusdonasi.html', {
-        'pending_transactions': transactions.filter(status='Pending'),
-        'completed_transactions': transactions.filter(status='Completed'),
+        'transactions': transactions.exclude(status='Selesai'),
     })
 
 def form_donasi(request):
@@ -105,6 +105,9 @@ def form_donasi(request):
         food_donor = FoodDonor.objects.filter(username=username).first()
     elif user_role == 'volunteer' and username:
         volunteer = Volunteer.objects.filter(username=username).first()
+    else:
+        return redirect('login')
+    
     if request.method == 'POST':
         form = FoodItemForm(request.POST)
         if form.is_valid():
@@ -115,7 +118,7 @@ def form_donasi(request):
                     DonationTransaction.objects.create(
                     food_item=donation,
                     volunteer=None, 
-                    status='Pending',
+                    status='Menunggu Diambil',
                     donation_date=timezone.now().date()
                     )
                     return redirect('home')
@@ -132,14 +135,14 @@ def form_donasi(request):
     })
 
 def riwayat_donasi(request):
-    pending_transactions = DonationTransaction.objects.filter(status='Pending')
-    completed_transactions = DonationTransaction.objects.filter(status='Completed')
-
-    context = {
-        'pending_transactions': pending_transactions,
-        'completed_transactions': completed_transactions,
-    }
-    return render(request, 'donation/riwayatdonasi.html', context)
+    username = request.session.get("username")
+    user_role = request.session.get("user_role")
+    
+    if not username or not user_role:
+        return redirect('login')
+    
+    completed_transactions = DonationTransaction.objects.filter(status='Selesai')
+    return render(request, 'donation/riwayatdonasi.html', {'completed_transactions': completed_transactions})
 
 def jadi_relawan(request):
     if request.method == 'POST':
