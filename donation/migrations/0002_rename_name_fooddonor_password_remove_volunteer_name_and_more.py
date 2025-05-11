@@ -21,16 +21,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='fooddonor',
-            name='expiry_date',
-            field=models.DateField(default='2000-01-01'),
-        ),
-        migrations.AddField(
-            model_name='fooddonor',
-            name='food_type',
-            field=models.CharField(blank=True, max_length=100, null=True),
-        ),
-        migrations.AddField(
-            model_name='fooddonor',
             name='organization_name',
             field=models.CharField(blank=True, max_length=100, null=True),
         ),

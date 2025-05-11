@@ -23,10 +23,9 @@ class FoodDonorSignUpForm(forms.ModelForm):
 
     class Meta:
         model = FoodDonor
-        fields = ['organization_name', 'food_type', 'location', 'phone_number', 'username', 'password']
+        fields = ['organization_name', 'location', 'phone_number', 'username', 'password']
         widgets = {
             'organization_name': forms.TextInput(attrs={'id' : 'nama'}), 
-            'food_type' : forms.TextInput(attrs={'id' : 'jenis_makanan'}), 
             'location' : forms.TextInput(attrs={'id' : 'alamat'}), 
             'phone_number' : forms.TextInput(attrs={'id' : 'telepon'}), 
             'username' : forms.TextInput(attrs={'id' : 'username'}), 

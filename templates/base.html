@@ -13,12 +13,16 @@
   <div class='container'>
     <div class="navbar">
       <a href="{% url "home" %}"><div class="logo"><strong>FOOD<span>WISE</span></strong></div></a>
-      {% comment %} <div>
-        <a href="{% url 'status_donasi'%}">Status Donasi</a>
-        <a href="#">Riwayat Donasi</a>
-      </div> {% endcomment %}
       {% if request.session.username %}
-      <!-- If the user is logged in -->
+      <div>
+        {% if request.session.user_role == 'Donatur' %}
+          {% url 'status_donasi' as dashboard_url %}
+        {% else %}
+          {% url 'riwayat_donasi' as dashboard_url %}
+        {% endif %}
+        <a href="{{ dashboard_url }}">Dashboard</a>
+        <a>{{request.session.user_role}}</a>
+      </div>
       <a href="{% url 'logout' %}">
           <button class="login-button">Log out</button>
       </a>

@@ -9,10 +9,8 @@ from django.contrib.auth.models import User
 class FoodDonor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE ,null=True, blank=True)
     organization_name = models.CharField(max_length=100, null=True, blank=True)
-    food_type = models.CharField(max_length=100, null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
-    expiry_date = models.DateField(default='2000-01-01')
     username = models.CharField(max_length=100, unique=True, null=True, blank=True)
     password = models.CharField(max_length=100)
 

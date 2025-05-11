@@ -47,7 +47,7 @@ def login_view(request):
             if volunteer and password == volunteer.password:
                 request.session['username'] = volunteer.username
                 request.session['user_id'] = volunteer.id
-                request.session['user_role'] = 'volunteer'
+                request.session['user_role'] = 'Relawan'
                 request.session.set_expiry(3600 * 24 * 30)  
                 return redirect('home')
 
@@ -55,7 +55,7 @@ def login_view(request):
             if food_donor and password == food_donor.password:
                 request.session['username'] = food_donor.username
                 request.session['user_id'] = food_donor.id
-                request.session['user_role'] = 'food_donor'
+                request.session['user_role'] = 'Donatur'
                 request.session.set_expiry(3600 * 24 * 30)
                 return redirect('status_donasi')
 
@@ -80,12 +80,12 @@ def status_donasi(request):
 
     transactions = DonationTransaction.objects.none()  # kosong tapi tetap queryset
 
-    if role == 'volunteer':
+    if role == 'Relawan':
         volunteer = Volunteer.objects.filter(username=username).first()
         if volunteer:
             transactions = DonationTransaction.objects.filter(volunteer=volunteer)
 
-    elif role == 'food_donor':
+    elif role == 'Donatur':
         donor = FoodDonor.objects.filter(username=username).first()
         if donor:
             transactions = DonationTransaction.objects.filter(food_item__food_donor=donor)
@@ -101,9 +101,9 @@ def form_donasi(request):
     user_role = request.session.get('user_role')
     food_donor = None
     volunteer = None
-    if user_role == 'food_donor' and username:
+    if user_role == 'Donatur' and username:
         food_donor = FoodDonor.objects.filter(username=username).first()
-    elif user_role == 'volunteer' and username:
+    elif user_role == 'Relawan' and username:
         volunteer = Volunteer.objects.filter(username=username).first()
     else:
         return redirect('login')
@@ -141,7 +141,11 @@ def riwayat_donasi(request):
     if not username or not user_role:
         return redirect('login')
     
-    completed_transactions = DonationTransaction.objects.filter(status='Selesai')
+    completed_transactions = DonationTransaction.objects.filter(
+        status='Selesai',
+        food_item__food_donor__username=username
+    )
+    
     return render(request, 'donation/riwayatdonasi.html', {'completed_transactions': completed_transactions})
 
 def jadi_relawan(request):

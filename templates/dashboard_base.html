@@ -32,12 +32,7 @@
         <div class="main">
             <div class="header">
                 <h1>{% block header %}{% endblock header %}</h1>
-                {% if request.session.username %}
-                    <form method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="logout"><a href="{% url 'logout' %}">Log out</a></button>
-                    </form>
-                {% endif %}
+                <a href="{% url 'logout' %}"><button type="submit" class="logout">Log out</button></a>
             </div>
             {% block content %}{% endblock content %}
         </div>

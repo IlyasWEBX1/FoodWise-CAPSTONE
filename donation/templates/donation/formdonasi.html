@@ -38,7 +38,7 @@
     
     <label>Tanggal Kadaluarsa</label>
     <input type="date" name="tgl_kadaluarsa" required> -->
-    {% if request.session.user_role == 'food_donor' %}
+    {% if request.session.user_role == 'Donatur' %}
     <p>Donatur: <strong>{{ food_donor.organization_name }}</strong></p>
 
     <form method="POST" enctype="multipart/form-data">
@@ -65,7 +65,7 @@
         <button type="submit" class="submit-btn">Kirim</button>
     </form>
 
-    {% elif request.session.user_role == 'volunteer' %}
+    {% elif request.session.user_role == 'Relawan' %}
         <p>As a volunteer, you cannot submit food donations directly.</p>
         <p>Please contact the food donor or admin for further actions.</p>
 
