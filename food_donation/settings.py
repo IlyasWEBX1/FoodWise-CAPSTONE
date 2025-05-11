@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'donation',
     'landing_page',
+    'relawan',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,7 @@ STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'static'),
     BASE_DIR / "donation" / "static",
     BASE_DIR / "landing_page" / "static",
+    BASE_DIR / "relawan" / "static",
 ]
 
 # Default primary key field type

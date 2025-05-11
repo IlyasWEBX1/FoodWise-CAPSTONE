@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Laporan Pembagian</title>
+  <link rel="stylesheet" href="{% static 'css/laporanpembagian.css' %}">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>RELAWAN</h2>
+      <button>Cari Donasi</button>
+      <button>Donasi Diambil</button>
+      <button>Tambah Makanan</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <div class="topbar">
+        <button class="logout">Log Out</button>
+      </div>
+
+      <h1>LAPORAN PEMBAGIAN</h1>
+
+      <div class="report-info">
+        <p><strong>Tanggal Distribusi</strong></p>
+        <p><strong>Nama Donatur</strong></p>
+        <p><strong>Jenis Makanan</strong></p>
+        <p><strong>Jumlah Makanan</strong></p>
+        <p><strong>Tujuan Pembagian</strong></p>
+        <p><strong>Bukti Pembagian</strong></p>
+        <p><strong>Catatan</strong></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

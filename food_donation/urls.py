@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('landing_page.urls')),  # ini penting!
     path('donation/', include('donation.urls')),  # ini penting!
+    path('relawan/', include('relawan.urls')),  # ini penting!
 ]
