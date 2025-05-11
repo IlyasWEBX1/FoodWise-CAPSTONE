@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #f4b183;
+  padding: 20px 10px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  color: maroon;
+  margin-bottom: 30px;
+}
+
+.sidebar button {
+  width: 100%;
+  background-color: white;
+  border: none;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Content */
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.brand .logo {
+  font-weight: bold;
+  color: #b22222;
+  margin-right: 10px;
+}
+
+.brand .dashboard {
+  color: maroon;
+  font-size: 14px;
+}
+
+.logout {
+  border: 1px solid maroon;
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  color: maroon;
+}
+
+/* Main */
+.main {
+  padding: 40px;
+  flex: 1;
+}
+
+.main h1 {
+  text-align: center;
+  color: maroon;
+  margin-bottom: 30px;
+}
+
+.search-box {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Detail Section */
+.details {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Button */
+.btn-donasi {
+  display: block;
+  margin: 40px auto 0 auto;
+  background-color: #670000;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
