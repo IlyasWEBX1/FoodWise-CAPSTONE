@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
@@ -121,7 +121,7 @@ def form_donasi(request):
                     status='Menunggu Diambil',
                     donation_date=timezone.now().date()
                     )
-                    return redirect('home')
+                    return redirect('status_donasi')
                 else:
                     form.add_error(None, 'Food donor not found.')
     else:
@@ -179,3 +179,11 @@ def jadi_mitra(request):
 def logout_view(request):
     request.session.flush()  
     return redirect('login') 
+
+def confirm_completion(request, transaction_id):
+    if request.method == 'POST':
+        transaction = get_object_or_404(DonationTransaction, id=transaction_id)
+        if transaction.status == 'Queued': 
+            transaction.status = 'Completed' 
+            transaction.save()
+    return redirect('status_donasi')  
