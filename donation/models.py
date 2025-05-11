@@ -56,9 +56,11 @@ class FoodItem(models.Model):
 class DonationTransaction(models.Model):
     PENDING = 'Pending'
     COMPLETED = 'Completed'
+    QUEUED = 'Queued'
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
         (COMPLETED, 'Completed'),
+        (QUEUED, 'Queued')
     ]
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE, null=True, blank=True)

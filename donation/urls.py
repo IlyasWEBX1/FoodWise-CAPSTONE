@@ -15,4 +15,5 @@ urlpatterns = [
     path('jadimitra/', views.jadi_mitra, name='jadi_mitra'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboardrelawan/', views.dashboardrelawan, name='dashboardrelawan'),
+    path('confirm/<int:transaction_id>/', views.confirm_completion, name='confirm_completion'),
 ]

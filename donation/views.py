@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
@@ -57,7 +57,7 @@ def login_view(request):
                 request.session['user_id'] = food_donor.id
                 request.session['user_role'] = 'food_donor'
                 request.session.set_expiry(3600 * 24 * 30)
-                return redirect('home')
+                return redirect('form_donasi')
 
             form.add_error(None, 'Invalid username or password')
     else:
@@ -93,6 +93,7 @@ def status_donasi(request):
     return render(request, 'donation/statusdonasi.html', {
         'pending_transactions': transactions.filter(status='Pending'),
         'completed_transactions': transactions.filter(status='Completed'),
+        'queued_transactions': transactions.filter(status='Queued')
     })
 
 def form_donasi(request):
@@ -118,7 +119,7 @@ def form_donasi(request):
                     status='Pending',
                     donation_date=timezone.now().date()
                     )
-                    return redirect('home')
+                    return redirect('status_donasi')
                 else:
                     form.add_error(None, 'Food donor not found.')
     else:
@@ -134,10 +135,12 @@ def form_donasi(request):
 def riwayat_donasi(request):
     pending_transactions = DonationTransaction.objects.filter(status='Pending')
     completed_transactions = DonationTransaction.objects.filter(status='Completed')
+    queued_transactions = DonationTransaction.objects.filter(status='Queued')
 
     context = {
         'pending_transactions': pending_transactions,
         'completed_transactions': completed_transactions,
+        'queued_transactions': queued_transactions
     }
     return render(request, 'donation/riwayatdonasi.html', context)
 
@@ -172,3 +175,11 @@ def jadi_mitra(request):
 def logout_view(request):
     request.session.flush()  
     return redirect('login') 
+
+def confirm_completion(request, transaction_id):
+    if request.method == 'POST':
+        transaction = get_object_or_404(DonationTransaction, id=transaction_id)
+        if transaction.status == 'Queued': 
+            transaction.status = 'Completed' 
+            transaction.save()
+    return redirect('status_donasi')  
