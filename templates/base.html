@@ -21,7 +21,6 @@
           {% url 'riwayat_donasi' as dashboard_url %}
         {% endif %}
         <a href="{{ dashboard_url }}">Dashboard</a>
-        <a>{{request.session.user_role}}</a>
       </div>
       <a href="{% url 'logout' %}">
           <button class="login-button">Log out</button>

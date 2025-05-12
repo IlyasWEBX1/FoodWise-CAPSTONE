@@ -33,7 +33,10 @@
             <p>{{ transaction.food_item.food_donor.location }}</p>
             <p>{{ transaction.donation_date }}</p>
             {% if transaction.status == 'Telah Disalurkan' %}
-            <button class="confirm-btn">Konfirmasi Selesai</button>
+            <form action="{% url 'confirm_completion' transaction.id %}" method="post">
+                {% csrf_token %}
+                <button class="confirm-btn" type="submit">Konfirmasi Selesai</button>
+            </form>
             {% endif %}
         </div>
         {% endfor %}       

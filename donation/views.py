@@ -8,63 +8,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 from django.utils import timezone
 
-def volunteer_signup(request):
-    if request.method == 'POST':
-        form = VolunteerSignUpForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            if Volunteer.objects.filter(username=username).exists():
-                form.add_error('username', 'Username already taken')
-            else:
-                form.save()
-                return redirect('login')  
-    else:
-        form = VolunteerSignUpForm()
-    return render(request, 'volunteer_signup.html', {'form': form})
-
-def fooddonor_signup(request):
-    if request.method == 'POST':
-        form = FoodDonorSignUpForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            if FoodDonor.objects.filter(username=username).exists():
-                form.add_error('username', 'Username already taken')
-            else:
-                form.save()
-                return redirect('login')  
-    else:
-        form = VolunteerSignUpForm()
-    return render(request, 'volunteer_signup.html', {'form': form})
-
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-
-            volunteer = Volunteer.objects.filter(username=username).first()
-            if volunteer and password == volunteer.password:
-                request.session['username'] = volunteer.username
-                request.session['user_id'] = volunteer.id
-                request.session['user_role'] = 'Relawan'
-                request.session.set_expiry(3600 * 24 * 30)  
-                return redirect('home')
-
-            food_donor = FoodDonor.objects.filter(username=username).first()
-            if food_donor and password == food_donor.password:
-                request.session['username'] = food_donor.username
-                request.session['user_id'] = food_donor.id
-                request.session['user_role'] = 'Donatur'
-                request.session.set_expiry(3600 * 24 * 30)
-                return redirect('status_donasi')
-
-            form.add_error(None, 'Invalid username or password')
-    else:
-        form = LoginForm()
-
-    return render(request, 'donation/login.html', {'form': form})
-
 def mitra(request):
     return render(request, 'donation/daftarmitrarelawan.html')
 
@@ -148,42 +91,14 @@ def riwayat_donasi(request):
     
     return render(request, 'donation/riwayatdonasi.html', {'completed_transactions': completed_transactions})
 
-def jadi_relawan(request):
-    if request.method == 'POST':
-        form = VolunteerSignUpForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            if Volunteer.objects.filter(username=username).exists():
-                form.add_error('username', 'Username already taken')
-            else:
-                form.save()
-                return redirect('login')  
-    else:
-        form = VolunteerSignUpForm()
-    return render(request, 'donation/jadirelawan.html', {'form': form})
-
-def jadi_mitra(request):
-    if request.method == 'POST':
-        form = FoodDonorSignUpForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            if FoodDonor.objects.filter(username=username).exists():
-                form.add_error('username', 'Username already taken')
-            else:
-                form.save()
-                return redirect('login')  
-    else:
-        form = FoodDonorSignUpForm()
-    return render(request, 'donation/jadimitra.html',{'form':form})
-
 def logout_view(request):
     request.session.flush()  
-    return redirect('login') 
+    return redirect('home') 
 
 def confirm_completion(request, transaction_id):
     if request.method == 'POST':
         transaction = get_object_or_404(DonationTransaction, id=transaction_id)
-        if transaction.status == 'Queued': 
-            transaction.status = 'Completed' 
+        if transaction.status == 'Telah Disalurkan': 
+            transaction.status = 'Selesai' 
             transaction.save()
     return redirect('status_donasi')  

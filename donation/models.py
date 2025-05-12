@@ -52,17 +52,19 @@ class FoodItem(models.Model):
         return self.name_food
 
 class DonationTransaction(models.Model):
-    PENDING = 'Pending'
-    COMPLETED = 'Completed'
-    QUEUED = 'Queued'
+    MENUNGGU_DIAMBIL = 'Menunggu Diambil'
+    MENUNGGU_DISALURKAN = 'Menunggu Disalurkan'
+    TELAH_DISALURKAN = 'Telah Disalurkan'
+    SELESAI = 'Selesai'
     STATUS_CHOICES = [
-        (PENDING, 'Pending'),
-        (COMPLETED, 'Completed'),
-        (QUEUED, 'Queued')
+        (MENUNGGU_DIAMBIL, 'Menunggu Diambil'),
+        (MENUNGGU_DISALURKAN, 'Menunggu Disalurkan'),
+        (TELAH_DISALURKAN, 'Telah Disalurkan'),
+        (SELESAI, 'Selesai')
     ]
     food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE, null=True, blank=True)
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=PENDING)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=MENUNGGU_DIAMBIL)
     donation_date = models.DateField()
 
     def __str__(self):
