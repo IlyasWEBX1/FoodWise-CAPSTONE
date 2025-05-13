@@ -130,6 +130,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "donation" / "static",
     BASE_DIR / "landing_page" / "static",
     BASE_DIR / "relawan" / "static",
+    BASE_DIR / "static"
 ]
 
 # Default primary key field type

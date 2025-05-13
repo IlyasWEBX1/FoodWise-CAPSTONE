@@ -1,0 +1,34 @@
+
+/* Form */
+.form-donasi {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+}
+
+.form-donasi label {
+    font-weight: bold;
+}
+
+.form-donasi input[type="text"],
+.form-donasi input[type="number"],
+.form-donasi input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.submit-btn {
+    width: 80px;
+    align-self: center;
+    padding: 8px 12px;
+    background-color: white;
+    color: #d35400;
+    border: 1px solid #d35400;
+    border-radius: 5px;
+    cursor: pointer;
+}

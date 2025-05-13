@@ -5,7 +5,7 @@
 {% block header %}Status Donasi{% endblock header %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/statusdonasi.css' %}">
+<link rel="stylesheet" href="{% static 'donation/css/statusdonasi.css' %}">
 {% endblock css %}
 
 
@@ -27,7 +27,7 @@
             {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
             {% endif %}">
 
-            <strong>{{ transaction.status }}</strong>
+            <div class='transaction-status'>{{ transaction.status }}</div>
             <p>{{ transaction.food_item.name_food }}</p>
             <p>{{ transaction.food_item.quantity }} Porsi</p>
             <p>{{ transaction.food_item.food_donor.location }}</p>

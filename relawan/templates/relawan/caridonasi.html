@@ -1,44 +1,45 @@
+{% extends "dashboard_base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cari Donasi</title>
-  <link rel="stylesheet" href="{% static 'css/caridonasi.css' %}">
-</head>
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <h2>RELAWAN</h2>
-      <button>Cari Donasi</button>
-      <button>Donasi Diambil</button>
-      <button>Tambah Makanan</button>
-    </div>
 
-    <div class="main">
-        <div class="topbar">
-          <button class="logout">Log Out</button>
-        </div>
+{% block title %}Cari Donasi{% endblock title %}
+{% block header %}Cari Donasi{% endblock header %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/caridonasi.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div>
+  <div class="search-box">
+    <input type="text" placeholder="Cari donasi...">
+  </div>
   
-      <div class="main">
-        <h1>CARI DONASI</h1>
-        <div class="search-box">
-          <input type="text" placeholder="Cari donasi...">
-        </div>
+  <div class="status-container">
 
-        <div class="details">
-          <p><strong>Donatur :</strong></p>
-          <p><strong>Jenis Makanan :</strong></p>
-          <p><strong>Jumlah :</strong></p>
-          <p><strong>Lokasi :</strong></p>
-          <p><strong>Tanggal :</strong></p>
-          <p><strong>Status :</strong></p>
-        </div>
+    {% comment %} <div class="status-card 
+        {% if transaction.status == 'Menunggu Diambil' %}status-belum
+        {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
+        {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
+        {% endif %}"> {% endcomment %}
+    <div class="status-card">
+      
+      {% comment %} <p>{{ transaction.food_item.name_food }}</p>
+      <p>{{ transaction.food_item.quantity }} Porsi</p>
+      <p>{{ transaction.food_item.food_donor.location }}</p>
+      <p>{{ transaction.donation_date }}</p> {% endcomment %}
 
-        <button class="btn-donasi">Ambil Donasi</button>
-      </div>
+      <p>Donatur</p>
+      <p>Jenis Makanan</p>
+      <p>x Porsi</p>
+      <p>Lokasi</p>
+      <p>tanggal</p>
+        {% comment %} <form action="{% url 'confirm_completion' transaction.id %}" method="post"> {% endcomment %}
+            {% comment %} {% csrf_token %} {% endcomment %}
+            <button class="confirm-btn" type="submit">Ambil Donasi</button>
+        {% comment %} </form> {% endcomment %}
     </div>
   </div>
-</body>
-</html>
+  
+  <button class="btn-donasi">Ambil Donasi</button>
+</div>
+{% endblock content %}

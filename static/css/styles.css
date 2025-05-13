@@ -1,0 +1,205 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #333;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Container Layout */
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #f4b183;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background-color: #ffffff91;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: auto ;
+}
+
+.sidebar h2 {
+  align-items: center;
+  font-size: 1.6rem;
+  color: white;
+  margin: 1.5rem auto 1.5rem;
+}
+
+.sidebar a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar button {
+  width: 100%;
+  background-color: white;
+  border: 2px solid maroon;
+  padding: 10px;
+  margin: 0px auto 10px; 
+  /* margin-bottom: 10px; */
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  color: maroon;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+  background-color: maroon;
+  color: white;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.logout {
+  border: 1px solid maroon;
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: maroon;
+  transition: background-color 0.3s;
+}
+
+.logout:hover {
+  background-color: maroon;
+  color: white;
+}
+
+/* Page Heading */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    color: #6d0606;
+}
+
+/* Search Box */
+.search-box {
+  /* max-width: 600px; */
+  margin: 30px 0px;
+  width: 30%;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Donation Details */
+.details {
+  max-width: 600px;
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Action Button */
+.btn-donasi {
+  display: block;
+  margin: 2rem auto 0;
+  background-color: #670000;
+  color: white;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-donasi:hover {
+  background-color: #4d0000;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    margin: 0 5px;
+  }
+
+  .main {
+    padding: 1.5rem;
+  }
+
+  .search-box,
+  .details {
+    width: 90%;
+  }
+
+  .brand-title {
+    font-size: 1.2rem;
+  }
+}

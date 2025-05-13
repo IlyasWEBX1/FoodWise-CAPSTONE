@@ -1,25 +1,4 @@
 
-/* Search Box */
-.search-box {
-  /* max-width: 600px; */
-  margin: 30px 0px;
-  width: 30%;
-  display: flex;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
-
-.search-box input {
-  flex: 1;
-  border: none;
-  padding: 14px 20px;
-  font-size: 16px;
-  outline: none;
-}
-
-/* Donation Card */
 .status-container {
     display: flex;
     gap: 20px;
@@ -33,6 +12,23 @@
     padding: 15px;
     width: 200px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.status-belum {
+    border-top: 5px solid red;
+}
+
+.status-sudah {
+    border-top: 5px solid blue;
+}
+
+.status-selesai {
+    border-top: 5px solid green;
+}
+
+.transaction-status {
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .status-card p {
@@ -49,6 +45,9 @@
     cursor: pointer;
 }
 
-.btn-donasi:hover {
-  background-color: #4d0000;
-} 
+.grid-placeholder {
+    background-color: #ddd;
+    height: 120px;
+    border-radius: 10px;
+    width: 200px;
+}
