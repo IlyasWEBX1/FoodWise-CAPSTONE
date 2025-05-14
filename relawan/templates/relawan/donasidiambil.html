@@ -9,20 +9,58 @@
 {% endblock css %}
 
 {% block content %}
-<div>
-  <div class="donation-info">
-    <p><strong>Tanggal Diambil</strong></p>
-    <p><strong>Nama Donatur</strong></p>
-    <p><strong>Jenis Makanan</strong></p>
-    <p><strong>Jumlah Makanan</strong></p>
-    <p><strong>Lokasi Pengambilan</strong></p>
-    <p><strong>Lokasi Pembagian</strong></p>
-    <p><strong>Status Donasi</strong></p>
-    <p><strong>Waktu Konfirmasi</strong></p>
-  </div>
+<div class="status-container">
   
-  <div class="action">
-    <button class="dibagikan">Donasi Dibagikan</button>
+  {% for transaction in inprogress_transactions %}
+  <div class="status-card 
+      {% if transaction.status == 'Menunggu Diambil' %}status-belum
+      {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
+      {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
+      {% endif %}">
+      
+  {% comment %} <div class="status-card"> {% endcomment %}
+    <p>{{ transaction.food_item.food_donor.organization_name }}</p>
+    <p>{{ transaction.food_item.name_food }}</p>
+    <p>{{ transaction.food_item.quantity }} Porsi</p>
+    <p>{{ transaction.food_item.food_donor.location }}</p>
+    <p>{{ transaction.food_item.expiry_date }}</p>
+      <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
+          {% csrf_token %}
+          {% if transaction.status == 'Menunggu Diambil' %}
+          <button class="confirm-btn" type="submit">Telah Diambil</button>
+          {% elif transaction.status == 'Menunggu Disalurkan' %}
+          <button class="confirm-btn" type="submit">Telah Disalurkan</button>
+          {% endif %}
+        </form>
   </div>
+  {% endfor %}
+
+  
+</div>
+<div class="table-container">
+  <table>
+      <thead>
+          <tr>
+              <th>No.</th>
+              <th>Tanggal</th>
+              <th>Jenis Makanan</th>
+              <th>Porsi</th>
+              <th>Alamat</th>
+              {% comment %} <th>Relawan</th> {% endcomment %}
+          </tr>
+      </thead>
+      <tbody>
+          {% for transaction in completed_transactions %}
+          <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ transaction.donation_date }}</td>
+              <td>{{ transaction.food_item.name_food }}</td>
+              <td>{{ transaction.food_item.quantity }}</td>
+              <td>{{ transaction.food_item.food_donor.location }}</td>
+              {% comment %} <td>{{ transaction.volunteer.full_name }}</td> {% endcomment %}
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
 </div>
 {% endblock content %}

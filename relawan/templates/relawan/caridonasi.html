@@ -15,31 +15,26 @@
   </div>
   
   <div class="status-container">
-
+    
+    {% for transaction in transactions %}
     {% comment %} <div class="status-card 
         {% if transaction.status == 'Menunggu Diambil' %}status-belum
         {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
         {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
         {% endif %}"> {% endcomment %}
+        
     <div class="status-card">
-      
-      {% comment %} <p>{{ transaction.food_item.name_food }}</p>
+      <p>{{ transaction.food_item.food_donor.organization_name }}</p>
+      <p>{{ transaction.food_item.name_food }}</p>
       <p>{{ transaction.food_item.quantity }} Porsi</p>
       <p>{{ transaction.food_item.food_donor.location }}</p>
-      <p>{{ transaction.donation_date }}</p> {% endcomment %}
-
-      <p>Donatur</p>
-      <p>Jenis Makanan</p>
-      <p>x Porsi</p>
-      <p>Lokasi</p>
-      <p>tanggal</p>
-        {% comment %} <form action="{% url 'confirm_completion' transaction.id %}" method="post"> {% endcomment %}
-            {% comment %} {% csrf_token %} {% endcomment %}
+      <p>{{ transaction.food_item.expiry_date }}</p>
+        <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
+            {% csrf_token %}
             <button class="confirm-btn" type="submit">Ambil Donasi</button>
-        {% comment %} </form> {% endcomment %}
+        </form>
     </div>
+    {% endfor %}
   </div>
-  
-  <button class="btn-donasi">Ambil Donasi</button>
 </div>
 {% endblock content %}
