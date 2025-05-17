@@ -20,16 +20,23 @@ def donasidiambil(request):
     if user_role == 'Relawan' and username:
         transactions = DonationTransaction.objects.filter(volunteer_id = user_id)
         inprogress_transactions = transactions.exclude(status = 'Selesai')
-        completed_transaction = transactions.filter(status = "Selesai")
-        return render(request, 'relawan/donasidiambil.html', {'inprogress_transactions':inprogress_transactions,
-                                                              'completed_transactions':completed_transaction})    
+        return render(request, 'relawan/donasidiambil.html', {'inprogress_transactions':inprogress_transactions})    
     else:
         return redirect('login')
 
 
-def laporanpembagian(request):
-    return render(request, 'relawan/laporanpembagian.html')
-
+def riwayatpembagian(request):
+    username = request.session.get('username')
+    user_role = request.session.get('user_role')
+    user_id = request.session.get('user_id')
+    
+    if user_role == 'Relawan' and username:
+        transactions = DonationTransaction.objects.filter(volunteer_id = user_id)
+        completed_transaction = transactions.filter(status = "Selesai")
+        return render(request, 'relawan/riwayatpembagian.html', {'completed_transactions':completed_transaction})
+    else:
+        return redirect("login")
+    
 def aksi_donasi(request, transaction_id):
     if request.method == 'POST':
         transaction = get_object_or_404(DonationTransaction, id=transaction_id)

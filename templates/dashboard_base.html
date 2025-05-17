@@ -24,7 +24,7 @@
                 <h2>RELAWAN</h2>
                 <a href="{% url 'caridonasi' %}"><button>Cari Donasi</button></a>
                 <a href="{% url 'donasidiambil' %}"><button>Donasi Diambil</button></a>
-                <a href="{% url 'laporanpembagian' %}"><button>Laporan Pembagian</button></a>
+                <a href="{% url 'riwayatpembagian' %}"><button>Riwayat Pembagian</button></a>
                 {% elif request.session.user_role == 'Donatur' %}
                 <h2>DONATUR</h2>
                 <a href="{% url 'status_donasi' %}"><button>Status Donasi</button></a>
