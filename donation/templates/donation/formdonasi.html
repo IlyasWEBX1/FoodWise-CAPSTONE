@@ -9,6 +9,9 @@
 {% endblock css %}
 
 {% block content %}
+
+
+
 {% if form.errors %}
 <div class="errorlist">
     {% for field in form %}
@@ -19,58 +22,90 @@
     {% for error in form.non_field_errors %}
         <p>{{ error }}</p>
     {% endfor %}
-    
 </div>
 {% endif %}
-<form class="form-donasi" method="post">
-    {% csrf_token %}
-    <!-- <label>Nama Donatur</label>
-    <input type="text" name="nama_donatur" required>
-    
-    <label>Jenis Makanan</label>
-    <input type="text" name="jenis_makanan" required>
-    
-    <label>Jumlah Porsi</label>
-    <input type="number" name="jumlah_porsi" min="1" required>
-    
-    <label>Alamat</label>
-    <input type="text" name="alamat" required>
-    
-    <label>Tanggal Kadaluarsa</label>
-    <input type="date" name="tgl_kadaluarsa" required> -->
-    {% if request.session.user_role == 'Donatur' %}
-    <p>Donatur: <strong>{{ food_donor.organization_name }}</strong></p>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <label for="{{ form.name_food.id_for_label }}">Nama Makanan</label>
-        {{ form.name_food }}
-        {% if form.name_food.errors %}
-            <div class="error">{{ form.name_food.errors }}</div>
-        {% endif %}
+{% if request.session.user_role == 'Donatur' %}
+    <div class="form-donasi">
+        <div class="donatur-info">
+            <p>Donatur: <strong>{{ food_donor.organization_name }}</strong></p>
+        </div>
 
-        <label for="{{ form.expiry_date.id_for_label }}">Tanggal Kadaluwarsa</label>
-        {{ form.expiry_date }}
-        {% if form.expiry_date.errors %}
-            <div class="error">{{ form.expiry_date.errors }}</div>
-        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.name_food.id_for_label }}">Nama Makanan</label>
+                {{ form.name_food }}
+                {% if form.name_food.errors %}
+                    <div class="error">{{ form.name_food.errors }}</div>
+                {% endif %}
+            </div>
 
-        <label for="{{ form.quantity.id_for_label }}">Kuantitas</label>
-        {{ form.quantity }}
-        {% if form.quantity.errors %}
-            <div class="error">{{ form.quantity.errors }}</div>
-        {% endif %}
+            <div class="form-group">
+                <label for="{{ form.expiry_date.id_for_label }}">Tanggal Kadaluwarsa</label>
+                {{ form.expiry_date }}
+                {% if form.expiry_date.errors %}
+                    <div class="error">{{ form.expiry_date.errors }}</div>
+                {% endif %}
+            </div>
 
-        <button type="submit" class="submit-btn">Kirim</button>
-    </form>
+            <div class="form-group">
+                <label for="{{ form.quantity.id_for_label }}">Kuantitas</label>
+                {{ form.quantity }}
+                {% if form.quantity.errors %}
+                    <div class="error">{{ form.quantity.errors }}</div>
+                {% endif %}
+            </div>
 
-    {% elif request.session.user_role == 'Relawan' %}
-        <p>As a volunteer, you cannot submit food donations directly.</p>
-        <p>Please contact the food donor or admin for further actions.</p>
+            <div class="form-group">
+                <label for="{{ form.img.id_for_label }}">Foto Makanan</label>
+                {{ form.img }}
+                {% if form.img.errors %}
+                    <div class="error">{{ form.img.errors }}</div>
+                {% endif %}
+            </div>
 
-    {% else %}
-        <p>You do not have permission to submit food donations.</p>
-    {% endif %}
-</form>
+            <button type="submit" class="submit-btn">Kirim</button>
+        </form>
+    </div>
+
+{% elif request.session.user_role == 'Relawan' %}
+    <div class="form-donasi">
+        <p>Sebagai relawan, Anda tidak dapat mengirim donasi makanan secara langsung.</p>
+        <p>Silakan hubungi donatur makanan atau admin untuk tindakan lebih lanjut.</p>
+    </div>
+
+{% else %}
+    <div class="form-donasi">
+        <p>Anda tidak memiliki izin untuk mengirim donasi makanan.</p>
+    </div>
+{% endif %}
+
+<script>
+    // Validasi tanggal kadaluwarsa tidak boleh sebelum hari ini
+    document.addEventListener('DOMContentLoaded', function() {
+        const expDateField = document.getElementById('tanggal_kadaluwarsa');
+        if (expDateField) {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1;
+            let dd = today.getDate();
+            
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            
+            const todayStr = `${yyyy}-${mm}-${dd}`;
+            expDateField.setAttribute('min', todayStr);
+            
+            // Set event listener to validate date
+            expDateField.addEventListener('change', function() {
+                if (this.value < todayStr) {
+                    alert('Tanggal kadaluwarsa tidak boleh sebelum hari ini');
+                    this.value = todayStr;
+                }
+            });
+        }
+    });
+</script>
 {% endblock content %}

@@ -6,12 +6,34 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'donation/css/statusdonasi.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock css %}
 
 
 {% block content %}
 <!-- Konten Utama -->
-<div>    
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2 class="status-title">Status Donasi Anda</h2>
+        <p class="status-subtitle">Pantau status donasi makanan Anda di sini</p>
+    </div>
+    
+    {% if not transactions %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-box-open"></i>
+        </div>
+        <h3>Belum Ada Donasi</h3>
+        <p>Anda belum memiliki donasi aktif saat ini.</p>
+        <a href="{% url 'form_donasi' %}" class="donate-btn">Donasi Sekarang</a>
+    </div>
+    {% else %}
+    <div class="status-filters">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="Menunggu Diambil">Menunggu Diambil</button>
+        <button class="filter-btn" data-filter="Menunggu Disalurkan">Menunggu Disalurkan</button>
+    </div>
+    
     <div class="status-container">
         {% comment %} 
         status:
@@ -20,26 +42,132 @@
         3. Telah Disalurkan
         4. Selesai(DB only, pindah ke riwayat)
         {% endcomment %}
-        {% for transaction in transactions%}
+        {% for transaction in transactions %}
         <div class="status-card 
             {% if transaction.status == 'Menunggu Diambil' %}status-belum
             {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
             {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
-            {% endif %}">
+            {% endif %}" data-status="{{ transaction.status }}">
 
-            <div class='transaction-status'>{{ transaction.status }}</div>
-            <p>{{ transaction.food_item.name_food }}</p>
-            <p>{{ transaction.food_item.quantity }} Porsi</p>
-            <p>{{ transaction.food_item.food_donor.location }}</p>
-            <p>{{ transaction.donation_date }}</p>
+            <div class="status-badge">
+                <i class="status-icon {% if transaction.status == 'Menunggu Diambil' %}fas fa-hourglass{% elif transaction.status == 'Menunggu Disalurkan' %}fas fa-truck{% elif transaction.status == 'Telah Disalurkan' %}fas fa-check-circle{% endif %}"></i>
+                <span class="transaction-status">{{ transaction.status }}</span>
+            </div>
+
+            <div class="image-container">
+                {% if transaction.food_item.img %}
+                    <img class="donation-img" src="{{ transaction.food_item.img.url }}" alt="Foto Makanan {{ transaction.food_item.name_food }}">
+                {% else %}
+                    <div class="no-img">
+                        <i class="fas fa-image"></i>
+                        <span>Tidak ada gambar</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="food-info">
+                <h3 class="food-name">{{ transaction.food_item.name_food }}</h3>
+                <div class="food-details">
+                    <div class="detail-item">
+                        <i class="fas fa-utensils"></i>
+                        <span>{{ transaction.food_item.quantity }} Porsi</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ transaction.food_item.food_donor.location }}</span>
+                    </div>
+                </div>
+                <div class="donation-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>{{ transaction.donation_date }}</span>
+                </div>
+            </div>
+            
             {% if transaction.status == 'Telah Disalurkan' %}
-            <form action="{% url 'confirm_completion' transaction.id %}" method="post">
-                {% csrf_token %}
-                <button class="confirm-btn" type="submit">Konfirmasi Selesai</button>
-            </form>
+            <div class="action-container">
+                {% if transaction.delivery_evidence %}
+                <button class="view-evidence-btn" data-img="{{ transaction.delivery_evidence.url }}">
+                    <i class="fas fa-image"></i> Lihat Bukti Penyaluran
+                </button>
+                {% else %}
+                <div class="no-evidence-message">
+                    <i class="fas fa-exclamation-circle"></i> Tidak ada bukti penyaluran
+                </div>
+                {% endif %}
+                
+                <form action="{% url 'confirm_completion' transaction.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="confirm-btn" type="submit">
+                        <i class="fas fa-check-circle"></i> Konfirmasi Selesai
+                    </button>
+                </form>
+            </div>
             {% endif %}
         </div>
         {% endfor %}       
     </div>
-    {% endblock content %}
-    
+    {% endif %}
+</div>
+
+<!-- Modal untuk menampilkan bukti penyaluran -->
+<div id="evidenceModal" class="evidence-modal">
+    <div class="evidence-modal-content">
+        <span class="evidence-close">&times;</span>
+        <img id="evidenceImage" src="" alt="Bukti Penyaluran">
+        <div class="evidence-caption">Bukti Penyaluran Makanan</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const statusCards = document.querySelectorAll('.status-card');
+        
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter the cards
+                statusCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-status') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Evidence modal functionality
+        const modal = document.getElementById('evidenceModal');
+        const evidenceImage = document.getElementById('evidenceImage');
+        const closeBtn = document.querySelector('.evidence-close');
+        const viewEvidenceBtns = document.querySelectorAll('.view-evidence-btn');
+        
+        viewEvidenceBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const imgUrl = this.getAttribute('data-img');
+                evidenceImage.src = imgUrl;
+                modal.style.display = 'flex';
+            });
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock content %}

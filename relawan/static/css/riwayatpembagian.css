@@ -1,31 +1,263 @@
+/* Riwayat Donasi CSS yang Ditingkatkan */
 
+/* Heading & Container Styling */
+.page-title {
+    margin-bottom: 1.5rem;
+    color: #6d0606;
+    position: relative;
+    display: inline-block;
+}
 
-/* tabel */
+.page-title:after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: #e85d04;
+    bottom: -8px;
+    left: 0;
+}
 
+.content-wrapper {
+    animation: fadeIn 0.5s ease-in;
+}
 
-/* Table */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Filter & Search Section */
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #f4b183;
+    border-radius: 30px;
+    font-size: 14px;
+    transition: all 0.3s;
+    padding-left: 45px;
+}
+
+.search-input:focus {
+    border-color: #e85d04;
+    box-shadow: 0 0 8px rgba(232, 93, 4, 0.3);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.filter-container {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 2px solid #f4b183;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    border-color: #e85d04;
+    outline: none;
+}
+
+/* Table Styling */
 .table-container {
     margin-top: 30px;
-    background-color: #fceee6;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #999;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    position: relative;
+    border: 1px solid #f4b183;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 thead th {
-    background-color: #d35400;
+    background-color: #e85d04;
     color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+tbody tr {
+    transition: all 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #fff3e9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 tbody td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #444;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 50px 0;
+    text-align: center;
+    color: #999;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #f4b183;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 5px;
+}
+
+.pagination-button {
+    border: 1px solid #f4b183;
+    background-color: white;
+    color: #e85d04;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: #f4b183;
+    color: white;
+}
+
+.pagination-button.active {
+    background-color: #e85d04;
+    color: white;
+    border-color: #e85d04;
+}
+
+/* Print Button */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.print-button {
+    background-color: #670000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.print-button:hover {
+    background-color: #4d0000;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .controls-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .search-container, .filter-container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        border-radius: 8px;
+        padding: 15px;
+    }
+    
+    thead th, tbody td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+    
+    .pagination-button {
+        padding: 6px 10px;
+    }
+}
+
+/* Animation for new entries */
+@keyframes highlightRow {
+    0% { background-color: #ffe0b2; }
+    100% { background-color: transparent; }
+}
+
+.new-entry {
+    animation: highlightRow 2s ease-out;
 }

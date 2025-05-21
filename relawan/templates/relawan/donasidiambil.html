@@ -9,33 +9,119 @@
 {% endblock css %}
 
 {% block content %}
-<div class="status-container">
-  
-  {% for transaction in inprogress_transactions %}
-  <div class="status-card 
-      {% if transaction.status == 'Menunggu Diambil' %}status-belum
-      {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
-      {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
-      {% endif %}">
-      
-  {% comment %} <div class="status-card"> {% endcomment %}
-    <p>{{ transaction.food_item.food_donor.organization_name }}</p>
-    <p>{{ transaction.food_item.name_food }}</p>
-    <p>{{ transaction.food_item.quantity }} Porsi</p>
-    <p>{{ transaction.food_item.food_donor.location }}</p>
-    <p>{{ transaction.food_item.expiry_date }}</p>
-      <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
-          {% csrf_token %}
-          {% if transaction.status == 'Menunggu Diambil' %}
-          <button class="confirm-btn" type="submit">Telah Diambil</button>
-          {% elif transaction.status == 'Menunggu Disalurkan' %}
-          <button class="confirm-btn" type="submit">Telah Disalurkan</button>
-          {% endif %}
-        </form>
+<!-- Konten Utama -->
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2 class="status-title">Status Donasi Diambil</h2>
+    <p class="status-subtitle">Perbarui status donasi yang Anda antar di sini</p>
   </div>
-  {% endfor %}
+    
+    {% if not transactions %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-box-open"></i>
+        </div>
+        <h3>Belum Ada Donasi</h3>
+        <p>Anda belum memiliki donasi aktif saat ini.</p>
+    </div>
+    {% else %}
 
-  
+    <div class="status-container">
+        {% comment %} 
+        status:
+        1. Menunggu Diambil
+        2. Menunggu Disalurkan
+        3. Telah Disalurkan
+        4. Selesai(DB only, pindah ke riwayat)
+        {% endcomment %}
+        {% for transaction in transactions %}
+        <div class="status-card 
+            {% if transaction.status == 'Menunggu Diambil' %}status-belum
+            {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
+            {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
+            {% endif %}" data-status="{{ transaction.status }}">
+
+            <div class="status-badge">
+                <i class="status-icon {% if transaction.status == 'Menunggu Diambil' %}fas fa-hourglass{% elif transaction.status == 'Menunggu Disalurkan' %}fas fa-truck{% elif transaction.status == 'Telah Disalurkan' %}fas fa-check-circle{% endif %}"></i>
+                <span class="transaction-status">{{ transaction.status }}</span>
+            </div>
+
+            <div class="image-container">
+                {% if transaction.food_item.img %}
+                    <img class="donation-img" src="{{ transaction.food_item.img.url }}" alt="Foto Makanan {{ transaction.food_item.name_food }}">
+                {% else %}
+                    <div class="no-img">
+                        <i class="fas fa-image"></i>
+                        <span>Tidak ada gambar</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="food-info">
+                <h3 class="food-name">{{ transaction.food_item.name_food }}</h3>
+                <div class="food-details">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <span>{{ transaction.food_item.food_donor.organization_name }}  </span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-utensils"></i>
+                        <span>{{ transaction.food_item.quantity }} Porsi</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ transaction.food_item.food_donor.location }}</span>
+                    </div>
+                </div>
+                <div class="donation-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>{{ transaction.donation_date }}</span>
+                </div>
+            </div>
+            
+            <div class="action-container">
+                {% if transaction.status == "Menunggu Diambil" %}
+                <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="confirm-btn" type="submit">
+                        <i class="fas fa-check-circle"></i> Telah Diambil
+                    </button>
+                </form>
+                {% elif transaction.status == "Menunggu Disalurkan" %}
+                    {% if transaction.delivery_evidence %}
+                        <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="confirm-btn" type="submit">
+                                <i class="fas fa-check-circle"></i> Telah Disalurkan
+                            </button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'upload_bukti_distribusi' transaction.id %}" method="post" enctype="multipart/form-data" class="distribution-form">
+                            {% csrf_token %}
+                            <div class="upload-container">
+                                <div class="file-upload">
+                                    <label for="distribution-image-{{ transaction.id }}" class="file-upload-label">
+                                        <i class="fas fa-camera"></i>
+                                        <span>Unggah Bukti Distribusi</span>
+                                    </label>
+                                    <input type="file" id="distribution-image-{{ transaction.id }}" name="distribution_img" accept="image/*" class="file-input" required>
+                                </div>
+                                <button type="submit" class="upload-btn">
+                                    <i class="fas fa-upload"></i> Unggah
+                                </button>
+                            </div>
+                            <div class="upload-note">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Unggah bukti distribusi untuk menyelesaikan proses</span>
+                            </div>
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}       
+    </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

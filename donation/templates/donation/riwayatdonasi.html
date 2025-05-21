@@ -4,37 +4,194 @@
 {% block title %}Riwayat Donasi{% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'donation/css/riwayatdonasi.css' %}">
+<!-- Font Awesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock css %}
 
 {% block header %}Riwayat Donasi{% endblock header %}
 
 {% block content %}
+<div class="content-wrapper">
+    <div class="controls-container">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Cari donasi...">
+        </div>
+        
+        <div class="filter-container">
+            <select class="filter-select" id="filterMonth">
+                <option value="">Semua Bulan</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+            
+            <select class="filter-select" id="filterYear">
+                <option value="">Semua Tahun</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+            </select>
+            
+            <select class="filter-select" id="filterFood">
+                <option value="">Semua Jenis Makanan</option>
+                {% for food_type in food_types %}
+                <option value="{{ food_type }}">{{ food_type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
 
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Tanggal</th>
-                <th>Jenis Makanan</th>
-                <th>Porsi</th>
-                <th>Alamat</th>
-                <th>Relawan</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transaction in completed_transactions %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ transaction.donation_date }}</td>
-                <td>{{ transaction.food_item.name_food }}</td>
-                <td>{{ transaction.food_item.quantity }}</td>
-                <td>{{ transaction.food_item.food_donor.location }}</td>
-                <td>{{ transaction.volunteer.full_name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-container">
+        {% if completed_transactions %}
+        <table id="donationTable">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tanggal</th>
+                    <th>Jenis Makanan</th>
+                    <th>Porsi</th>
+                    <th>Alamat</th>
+                    <th>Relawan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in completed_transactions %}
+                <tr class="{% if transaction.is_new %}new-entry{% endif %}">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ transaction.donation_date }}</td>
+                    <td>{{ transaction.food_item.name_food }}</td>
+                    <td>{{ transaction.food_item.quantity }}</td>
+                    <td>{{ transaction.food_item.food_donor.location }}</td>
+                    <td>{{ transaction.volunteer.full_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h3>Belum Ada Riwayat Donasi</h3>
+            <p>Anda belum memiliki catatan donasi yang selesai.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if completed_transactions %}
+    <div class="pagination">
+        {% if completed_transactions.has_previous %}
+        <button class="pagination-button" onclick="location.href='?page={{ completed_transactions.previous_page_number }}'">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        {% endif %}
+        
+        {% for i in completed_transactions.paginator.page_range %}
+        {% if completed_transactions.number == i %}
+        <button class="pagination-button active">{{ i }}</button>
+        {% else %}
+        <button class="pagination-button" onclick="location.href='?page={{ i }}'">{{ i }}</button>
+        {% endif %}
+        {% endfor %}
+        
+        {% if completed_transactions.has_next %}
+        <button class="pagination-button" onclick="location.href='?page={{ completed_transactions.next_page_number }}'">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        {% endif %}
+    </div>
+    
+    <div class="action-buttons">
+        <button class="print-button" onclick="printRiwayat()">
+            <i class="fas fa-print"></i> Cetak Riwayat
+        </button>
+    </div>
+    {% endif %}
 </div>
 
+<script>
+    // Fungsi pencarian
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        let input = this.value.toLowerCase();
+        let table = document.getElementById('donationTable');
+        let rows = table.getElementsByTagName('tr');
+        
+        for (let i = 1; i < rows.length; i++) {
+            let match = false;
+            let cells = rows[i].getElementsByTagName('td');
+            
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().indexOf(input) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+            
+            rows[i].style.display = match ? '' : 'none';
+        }
+    });
+    
+    // Fungsi filter
+    function applyFilters() {
+        let monthFilter = document.getElementById('filterMonth').value;
+        let yearFilter = document.getElementById('filterYear').value;
+        let foodFilter = document.getElementById('filterFood').value;
+        
+        let table = document.getElementById('donationTable');
+        let rows = table.getElementsByTagName('tr');
+        
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName('td');
+            let dateCell = cells[1].textContent;
+            let foodCell = cells[2].textContent;
+            
+            let dateParts = dateCell.split(' ');
+            let displayMonth = getMonthNumber(dateParts[0]);
+            let displayYear = dateParts[2];
+            
+            let monthMatch = monthFilter === '' || displayMonth === monthFilter;
+            let yearMatch = yearFilter === '' || displayYear === yearFilter;
+            let foodMatch = foodFilter === '' || foodCell.includes(foodFilter);
+            
+            rows[i].style.display = (monthMatch && yearMatch && foodMatch) ? '' : 'none';
+        }
+    }
+    
+    function getMonthNumber(monthName) {
+        const months = {
+            'January': '01', 'Januari': '01',
+            'February': '02', 'Februari': '02',
+            'March': '03', 'Maret': '03',
+            'April': '04',
+            'May': '05', 'Mei': '05',
+            'June': '06', 'Juni': '06',
+            'July': '07', 'Juli': '07',
+            'August': '08', 'Agustus': '08',
+            'September': '09',
+            'October': '10', 'Oktober': '10',
+            'November': '11',
+            'December': '12', 'Desember': '12'
+        };
+        return months[monthName] || '';
+    }
+    
+    document.getElementById('filterMonth').addEventListener('change', applyFilters);
+    document.getElementById('filterYear').addEventListener('change', applyFilters);
+    document.getElementById('filterFood').addEventListener('change', applyFilters);
+    
+    // Fungsi cetak
+    function printRiwayat() {
+        window.print();
+    }
+</script>
 {% endblock content %}

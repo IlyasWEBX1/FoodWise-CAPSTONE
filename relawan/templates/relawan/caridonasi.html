@@ -9,32 +9,117 @@
 {% endblock css %}
 
 {% block content %}
-<div>
-  <div class="search-box">
-    <input type="text" placeholder="Cari donasi...">
+<!-- Konten Utama -->
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2 class="status-title">Status Donasi Anda</h2>
+    <p class="status-subtitle">Pantau status donasi makanan Anda di sini</p>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Cari donasi...">
+        </div>
+
   </div>
-  
-  <div class="status-container">
     
-    {% for transaction in transactions %}
-    {% comment %} <div class="status-card 
-        {% if transaction.status == 'Menunggu Diambil' %}status-belum
-        {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
-        {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
-        {% endif %}"> {% endcomment %}
-        
-    <div class="status-card">
-      <p>{{ transaction.food_item.food_donor.organization_name }}</p>
-      <p>{{ transaction.food_item.name_food }}</p>
-      <p>{{ transaction.food_item.quantity }} Porsi</p>
-      <p>{{ transaction.food_item.food_donor.location }}</p>
-      <p>{{ transaction.food_item.expiry_date }}</p>
-        <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
-            {% csrf_token %}
-            <button class="confirm-btn" type="submit">Ambil Donasi</button>
-        </form>
+    {% if not transactions %}
+    <div class="empty-state">
+        <div class="empty-icon">
+            <i class="fas fa-box-open"></i>
+        </div>
+        <h3>Belum Ada Donasi</h3>
+        <p>Belum ada donasi aktif saat ini.</p>
     </div>
-    {% endfor %}
-  </div>
+    {% else %}
+
+    <div class="status-container">
+        {% comment %} 
+        status:
+        1. Menunggu Diambil
+        2. Menunggu Disalurkan
+        3. Telah Disalurkan
+        4. Selesai(DB only, pindah ke riwayat)
+        {% endcomment %}
+        {% for transaction in transactions %}
+        <div class="status-card 
+            {% if transaction.status == 'Menunggu Diambil' %}status-belum
+            {% elif transaction.status == 'Menunggu Disalurkan' %}status-sudah
+            {% elif transaction.status == 'Telah Disalurkan' %}status-selesai
+            {% endif %}" data-status="{{ transaction.status }}">
+
+            <div class="status-badge">
+                <i class="status-icon {% if transaction.status == 'Menunggu Diambil' %}fas fa-hourglass{% elif transaction.status == 'Menunggu Disalurkan' %}fas fa-truck{% elif transaction.status == 'Telah Disalurkan' %}fas fa-check-circle{% endif %}"></i>
+                <span class="transaction-status">{{ transaction.status }}</span>
+            </div>
+
+            <div class="image-container">
+                {% if transaction.food_item.img %}
+                    <img class="donation-img" src="{{ transaction.food_item.img.url }}" alt="Foto Makanan {{ transaction.food_item.name_food }}">
+                {% else %}
+                    <div class="no-img">
+                        <i class="fas fa-image"></i>
+                        <span>Tidak ada gambar</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="food-info">
+                <h3 class="food-name">{{ transaction.food_item.name_food }}</h3>
+                <div class="food-details">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <span>{{ transaction.food_item.food_donor.organization_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-utensils"></i>
+                        <span>{{ transaction.food_item.quantity }} Porsi</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ transaction.food_item.food_donor.location }}</span>
+                    </div>
+                </div>
+                <div class="donation-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>{{ transaction.donation_date }}</span>
+                </div>
+            </div>
+            
+            <div class="action-container">
+                <form action="{% url 'aksi_donasi' transaction.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="confirm-btn" type="submit">
+                        <i class="fas fa-check-circle"></i> Ambil Donasi
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}       
+    </div>
+    {% endif %}
 </div>
+
+<script>
+    // Fungsi pencarian yang diperbaiki
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        let input = this.value.toLowerCase();
+        let cards = document.querySelectorAll('.status-card');
+        
+        cards.forEach(function(card) {
+            let foodName = card.querySelector('.food-name').textContent.toLowerCase();
+            let donorName = card.querySelector('.food-details .detail-item:nth-child(1) span').textContent.toLowerCase();
+            let location = card.querySelector('.food-details .detail-item:nth-child(3) span').textContent.toLowerCase();
+            let status = card.querySelector('.transaction-status').textContent.toLowerCase();
+            
+            // Cek apakah input ada di salah satu field yang kita cari
+            if (foodName.includes(input) || 
+                donorName.includes(input) || 
+                location.includes(input) || 
+                status.includes(input)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 {% endblock content %}

@@ -4,44 +4,157 @@
 <html lang="id">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Dashboard{% endblock title %}</title>
-        {% comment %} <link rel="stylesheet" href="{% static 'donation/css/styles.css' %}"> {% endcomment %}
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         {% block css %}{% endblock css %}
-
     </head>
     <body>
-        <!-- Sidebar -->
         <div class="container">
-
-            <div class="sidebar">
-                <a href="{% url 'home' %}">
-                    <div class="brand-title">
-                        <span style="color: black;">FOOD</span><span style="color: #e85d04;">WISE</span>
+            <!-- Sidebar yang Ditingkatkan -->
+            <div class="sidebar expanded" id="sidebar">
+                <div class="top-section">
+                    <div class='head-sidebar'>
+                        <div class='toggle-container'>
+                            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Menu">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                        
+                        <a href="{% url 'home' %}" class="brand-container">
+                            <div class="brand-title expanded" id="brandTitle">
+                                <span>FOOD</span><span>WISE</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
-                {% if request.session.user_role == 'Relawan' %}
-                <h2>RELAWAN</h2>
-                <a href="{% url 'caridonasi' %}"><button>Cari Donasi</button></a>
-                <a href="{% url 'donasidiambil' %}"><button>Donasi Diambil</button></a>
-                <a href="{% url 'riwayatpembagian' %}"><button>Riwayat Pembagian</button></a>
-                {% elif request.session.user_role == 'Donatur' %}
-                <h2>DONATUR</h2>
-                <a href="{% url 'status_donasi' %}"><button>Status Donasi</button></a>
-                <a href="{% url 'riwayat_donasi' %}"><button>Riwayat Donasi</button></a>
-                <a href="{% url 'form_donasi' %}"><button>Tambah Makanan</button></a>
-                {% endif %}
+                    
+                    {% if request.session.user_role == 'Relawan' %}
+                        <div class="role-badge">RELAWAN</div>
+                        <div class="nav-menu">
+                            <a href="{% url 'caridonasi' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'caridonasi' %}active{% endif %}">
+                                    <i class="fas fa-search"></i>
+                                    <span>Cari Donasi</span>
+                                </button>
+                            </a>
+                            <a href="{% url 'donasidiambil' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'donasidiambil' %}active{% endif %}">
+                                    <i class="fas fa-hands-helping"></i>
+                                    <span>Donasi Diambil</span>
+                                </button>
+                            </a>
+                            <a href="{% url 'riwayatpembagian' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'riwayatpembagian' %}active{% endif %}">
+                                    <i class="fas fa-history"></i>
+                                    <span>Riwayat Pembagian</span>
+                                </button>
+                            </a>
+                        </div>
+                    {% elif request.session.user_role == 'Donatur' %}
+                        <div class="role-badge">DONATUR</div>
+                        <div class="nav-menu">
+                            <a href="{% url 'status_donasi' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'status_donasi' %}active{% endif %}">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <span>Status Donasi</span>
+                                </button>
+                            </a>
+                            <a href="{% url 'riwayat_donasi' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'riwayat_donasi' %}active{% endif %}">
+                                    <i class="fas fa-history"></i>
+                                    <span>Riwayat Donasi</span>
+                                </button>
+                            </a>
+                            <a href="{% url 'form_donasi' %}" class="nav-link">
+                                <button class="nav-button {% if request.resolver_match.url_name == 'form_donasi' %}active{% endif %}">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Tambah Makanan</span>
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="sidebar-footer">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle fa-2x" style="color: #670000;"></i>
+                        <div class="user-name">{{ request.session.name }}</div>
+                    </div>
+                    <a href="{% url 'logout' %}" class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Log out</span>
+                    </a>
+                </div>
             </div>
             
             <!-- Konten Utama -->
-            <div class="main">
-                <div class="header">
-                    <h1>{% block header %}{% endblock header %}</h1>
-                    <a href="{% url 'logout' %}"><button type="submit" class="logout">Log out</button></a>
-                </div>
+            <div class="main" id="main">
                 {% block content %}{% endblock content %}
             </div>
         </div>
+
+        <script>
+            // Toggle Sidebar dan sesuaikan ukuran konten utama
+            document.getElementById('sidebarToggle').addEventListener('click', function(event) {
+                const sidebar = document.getElementById('sidebar');
+                const brandTitle = document.getElementById('brandTitle');
+                const main = document.getElementById('main');
+                
+                sidebar.classList.toggle('expanded');
+                brandTitle.classList.toggle('collapsed');
+                main.classList.toggle('expanded');
+                
+                // Hentikan propagasi event agar klik tidak tertangkap oleh document event
+                event.stopPropagation();
+            });
+            
+            // Deteksi ukuran layar untuk sidebar responsif dan penyesuaian ukuran main
+            function checkScreenSize() {
+                const sidebar = document.getElementById('sidebar');
+                const brandTitle = document.getElementById('brandTitle');
+                const main = document.getElementById('main');
+                
+                if (window.innerWidth > 768) {
+                    sidebar.classList.add('expanded');
+                    brandTitle.classList.remove('collapsed');
+                    main.classList.remove('expanded');
+                } else {
+                    sidebar.classList.remove('expanded');
+                    brandTitle.classList.add('collapsed');
+                    main.classList.add('expanded');
+                }
+            }
+            
+            // Event listener untuk menutup sidebar saat klik di luar pada tampilan mobile
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('sidebar');
+                const main = document.getElementById('main');
+                
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(event.target) && 
+                    sidebar.classList.contains('expanded')) {
+                    sidebar.classList.remove('expanded');
+                    document.getElementById('brandTitle').classList.add('collapsed');
+                    main.classList.add('expanded');
+                }
+            });
+            
+            // Efek hover untuk tombol navigasi
+            const navButtons = document.querySelectorAll('.nav-button');
+            navButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Panggil saat load dan resize
+            window.addEventListener('resize', checkScreenSize);
+            window.addEventListener('load', checkScreenSize);
+        </script>
     </body>
-    </html>
-    
+</html>

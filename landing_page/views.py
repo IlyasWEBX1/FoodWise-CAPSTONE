@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+import datetime
 
 from donation.models import FoodDonor, Volunteer
 from landing_page.forms import FoodDonorSignUpForm, LoginForm, VolunteerSignUpForm
@@ -41,6 +42,7 @@ def login_view(request):
 
             volunteer = Volunteer.objects.filter(username=username).first()
             if volunteer and password == volunteer.password:
+                request.session['name'] = volunteer.full_name
                 request.session['username'] = volunteer.username
                 request.session['user_id'] = volunteer.id
                 request.session['user_role'] = 'Relawan'
@@ -49,12 +51,13 @@ def login_view(request):
 
             food_donor = FoodDonor.objects.filter(username=username).first()
             if food_donor and password == food_donor.password:
+                request.session['name'] = food_donor.organization_name
                 request.session['username'] = food_donor.username
                 request.session['user_id'] = food_donor.id
                 request.session['user_role'] = 'Donatur'
                 request.session.set_expiry(3600 * 24 * 30)
                 return redirect('status_donasi')
-
+             
             form.add_error(None, 'Invalid username or password')
     else:
         form = LoginForm()

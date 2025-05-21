@@ -52,7 +52,7 @@ def form_donasi(request):
         return redirect('login')
     
     if request.method == 'POST':
-        form = FoodItemForm(request.POST)
+        form = FoodItemForm(request.POST, request.FILES)
         if form.is_valid():
                 if food_donor:
                     donation = form.save(commit=False)
