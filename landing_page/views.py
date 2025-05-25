@@ -56,7 +56,7 @@ def login_view(request):
                 request.session['user_id'] = food_donor.id
                 request.session['user_role'] = 'Donatur'
                 request.session.set_expiry(3600 * 24 * 30)
-                return redirect('status_donasi')
+                return redirect('home')
              
             form.add_error(None, 'Invalid username or password')
     else:
@@ -78,6 +78,7 @@ def landing_page(request):
     return render(request, 'landing_page/landing_page.html', {'funfacts': funfacts})
 
 def jadi_relawan(request):
+    request.session.flush()  
     if request.method == 'POST':
         form = VolunteerSignUpForm(request.POST)
         if form.is_valid():
@@ -92,6 +93,7 @@ def jadi_relawan(request):
     return render(request, 'landing_page/jadirelawan.html', {'form': form})
 
 def jadi_mitra(request):
+    request.session.flush()  
     if request.method == 'POST':
         form = FoodDonorSignUpForm(request.POST)
         if form.is_valid():
