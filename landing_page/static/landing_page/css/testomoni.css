@@ -1,0 +1,9 @@
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(247, 247, 247);
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
