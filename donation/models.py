@@ -28,9 +28,10 @@ class FoodDonor(models.Model):
         return self.organization_name
 
 class Volunteer(models.Model):
+    GENDER_CHOICES = [("Male", 'Laki-laki'),("Female", 'Perempuan')]
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True, blank=True)
     full_name = models.CharField(max_length=100, null=True, blank=True)
-    gender = models.CharField(max_length=10, null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     location = models.CharField(max_length=255, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     birth_date = models.DateField(default='2000-01-01')
